@@ -29,29 +29,65 @@ enum Colors {
 	YELLOW	
 }
 
-Area -right-> Tile : "use"
-abstract class Area {
-	-Collection<Tile> tiles
+
+interface Area {
+	+void addTile(Tile tile)
+	+Tile removeTile(Tile tile)
+	+int size()
+	+boolean isEmpty()
 }
 
-Area <|-- OffSideArea
-abstract class OffSideArea
-OffSideArea <|-- Bag
-OffSideArea <|-- Trash
+Area <|.. OffSideArea
+abstract class OffSideArea {
+	-ArrayList<Tile> tiles
+}
 
-Area <|-- CommonArea
+OffSideArea <|-- Bag
+class Bag {
+	+void refill(Trash trash)
+}
+
+OffSideArea <|-- Trash
+class Trash {
+	
+}
+
+Area <|.. CommonArea
 abstract class CommonArea
 CommonArea <|-- CenterArea
 CommonArea <|-- Factories
+class Factories {
+	+ArrayList<Tile> createTiles(Bag bag)
+}
 
-Area <|-- PlayerArea
+Area <|.. PlayerArea
 abstract class PlayerArea
+
 PlayerArea <|-- Wall
+class Wall {
+	-Tile[][] tiles
+}
+
 PlayerArea <|-- Floor
+class Floor {
+	-Tile[] tiles
+}
+
 PlayerArea <|-- PatternArea
+class PatternArea{
+	-Tile[][] tiles
+}
 
 abstract class Player {
-	int score
+	Stat stats
+}
+
+Stat  --* Player : "intern class"
+class Stat {
+	int totalScore
+	int[] perRoundScore
+	String name
+	boolean isHuman
 }
 
 Player <|-- HumanPlayer
@@ -62,29 +98,37 @@ class PlayerBoard
 PlayerBoard --* Player : "intern class"
 
 
-Configuration -left-* Game : "intern class"
-class Configuration {
-	int nbOfPlayers
-	AIDifficulty
-
+GameConfiguration -left-* Game : "intern class"
+class GameConfiguration {
+	-int nbOfPlayers	
+	-AIDifficulty
+	+void saveTo(File f)
+	+void loadFrom(File f)
 }
 
 Game --> Round : "observes"
 class Game {
-	-Configuration config
+	-GameConfiguration config
 	-ArrayList<Player> players
 	-GameBoard board
-	+start(Configuration config)
-	+void loadConfig(Configuration config)
+	-LinkedList<Round> rounds
+	-Round currentRound
+	-Player winner
+	-void loadConfig(GameConfiguration config)
+	+void init(GameConfiguration config)
+	+void play()
+	+void shutdown()
 }
 
 Game --> GameBoard : "init"
+GameBoard --* Game : "intern class"
 class GameBoard {
 	-ArrayList<PlayerBoard> playerBoards
 	-Bag bag
 	-Trash trash
 	-Factories factories
 	-CenterArea center
+	+init(GameConfiguration config)
 }
 	
 Round --> PlayerBoard : "observes"
@@ -94,7 +138,8 @@ class PlayerBoard {
 	-PatternArea playerPatternArea
 }
 
-class Round {
+class Round {	
+	-LinkedList<Player> players
 	+preparationPhase()
 	+offerPhase()
 	+decorationPhase()	
