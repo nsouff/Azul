@@ -1,0 +1,110 @@
+@startuml
+
+Abstract class Tile {
+	-Area currentArea
+	+moveTo(Area area)
+}
+
+
+Tile <|-- SpecialTile
+abstract class SpecialTile {
+	+effect()
+}
+
+Tile <|-- ColoredTile
+class ColoredTile {
+	-Colors color
+	+Colors getColor()
+}
+
+SpecialTile <|-- FirstTile
+class FirstTile
+
+Colors --* ColoredTile : "intern enum"
+enum Colors {
+	BLUE
+	RED
+	GREEN
+	BLACK
+	YELLOW	
+}
+
+Area -right-> Tile : "use"
+abstract class Area {
+	-Collection<Tile> tiles
+}
+
+Area <|-- OffSideArea
+abstract class OffSideArea
+OffSideArea <|-- Bag
+OffSideArea <|-- Trash
+
+Area <|-- CommonArea
+abstract class CommonArea
+CommonArea <|-- CenterArea
+CommonArea <|-- Factories
+
+Area <|-- PlayerArea
+abstract class PlayerArea
+PlayerArea <|-- Wall
+PlayerArea <|-- Floor
+PlayerArea <|-- PatternArea
+
+abstract class Player {
+	int score
+}
+
+Player <|-- HumanPlayer
+Player <|-- AIPlayer
+
+
+class PlayerBoard
+PlayerBoard --* Player : "intern class"
+
+
+Configuration -left-* Game : "intern class"
+class Configuration {
+	int nbOfPlayers
+	AIDifficulty
+
+}
+
+Game --> Round : "observes"
+class Game {
+	-Configuration config
+	-ArrayList<Player> players
+	-GameBoard board
+	+start(Configuration config)
+	+void loadConfig(Configuration config)
+}
+
+Game --> GameBoard : "init"
+class GameBoard {
+	-ArrayList<PlayerBoard> playerBoards
+	-Bag bag
+	-Trash trash
+	-Factories factories
+	-CenterArea center
+}
+	
+Round --> PlayerBoard : "observes"
+class PlayerBoard {
+	-Wall playerWall
+	-Floor playerFloor
+	-PatternArea playerPatternArea
+}
+
+class Round {
+	+preparationPhase()
+	+offerPhase()
+	+decorationPhase()	
+}
+
+
+App --> Game : "calls"
+class App {
+	+void main(String[] args)
+}
+
+
+@enduml
