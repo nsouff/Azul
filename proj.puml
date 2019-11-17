@@ -2,7 +2,8 @@
 
 Abstract class Tile {
 	-Area currentArea
-	+moveTo(Area area)
+	+moveTo(int index, IndexedArea area)
+	+moveTo(UnidexedArea area)
 }
 
 
@@ -26,18 +27,27 @@ enum Colors {
 	RED
 	GREEN
 	BLACK
-	YELLOW	
+	YELLOW
 }
 
 
 interface Area {
-	+void addTile(Tile tile)
 	+Tile removeTile(Tile tile)
 	+int size()
 	+boolean isEmpty()
+	+boolean moveTilesTo(Area area)
+}
+Area <|-- UnidexedArea
+interface UnidexedArea {
+	+void add(Tile tile)
 }
 
-Area <|.. OffSideArea
+Area <|-- IndexedArea
+interface IndexedArea {
+	+void add(int index, Tile tile)
+}
+
+UnidexedArea <|.. OffSideArea
 abstract class OffSideArea {
 	-ArrayList<Tile> tiles
 }
@@ -49,37 +59,41 @@ class Bag {
 
 OffSideArea <|-- Trash
 class Trash {
-	
-}
 
-Area <|.. CommonArea
-abstract class CommonArea
+}
+IndexedArea <|.. CommonArea
+abstract class CommonArea {
+	ArrayList<Tile> tiles
+}
 CommonArea <|-- CenterArea
-CommonArea <|-- Factories
-class Factories {
+CommonArea <|-- Factorie
+class Factorie {
 	+ArrayList<Tile> createTiles(Bag bag)
 }
 
-Area <|.. PlayerArea
 abstract class PlayerArea
 
+IndexedArea <|.. Wall
 PlayerArea <|-- Wall
 class Wall {
-	-Tile[][] tiles
+	-ArrayList<ArrayList<Tile>> tiles
 }
 
+UnidexedArea <|.. Floor
 PlayerArea <|-- Floor
 class Floor {
-	-Tile[] tiles
+	-ArrayList<Tile> tiles
 }
 
+IndexedArea <|.. PatternArea
 PlayerArea <|-- PatternArea
 class PatternArea{
-	-Tile[][] tiles
+	-ArrayList<ArrayList<Tile>> tiles
 }
 
 abstract class Player {
 	Stat stats
+	PlayerBoard playerBoard
 }
 
 Stat  --* Player : "intern class"
@@ -100,7 +114,7 @@ PlayerBoard --* Player : "intern class"
 
 GameConfiguration -left-* Game : "intern class"
 class GameConfiguration {
-	-int nbOfPlayers	
+	-int nbOfPlayers
 	-AIDifficulty
 	+void saveTo(File f)
 	+void loadFrom(File f)
@@ -126,11 +140,11 @@ class GameBoard {
 	-ArrayList<PlayerBoard> playerBoards
 	-Bag bag
 	-Trash trash
-	-Factories factories
+	-Factorie[] factories
 	-CenterArea center
 	+init(GameConfiguration config)
 }
-	
+
 Round --> PlayerBoard : "observes"
 class PlayerBoard {
 	-Wall playerWall
@@ -138,11 +152,11 @@ class PlayerBoard {
 	-PatternArea playerPatternArea
 }
 
-class Round {	
+class Round {
 	-LinkedList<Player> players
 	+preparationPhase()
 	+offerPhase()
-	+decorationPhase()	
+	+decorationPhase()
 }
 
 
