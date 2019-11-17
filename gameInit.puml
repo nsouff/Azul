@@ -1,21 +1,32 @@
 @startuml
-title Game initialization
-partition App.main {
-	(*) --> "load GameConfiguration"
-	--> "create Game according to the GameConfiguration" as createG
-	'	--> "start Game"
+title Game creation and initialization
+
+start
+:load GameConfiguration;
+:create Game according to the GameConfiguration;
+
+
+partition "Game initialization " {
+	:init GameBoard;
+	partition "GameBoard initialization " {
+		:init Bag;
+		:init CenterArea;
+		:init Trash;
+		:init Factories;
+	}
+	:init all players;
+}
+		
+partition "Player initialization " {
+	:init player board;	
+	partition "PlayerBoard initialization " { 
+		:init Wall;
+		:init Floor;
+		:init PatterArea;
+	}
+	:init stat;		
 }
 
-partition Game {
-	createG -->"init GameBoard" as initGB
-	
-	partition Game.GameBoard {
-		initGB --> "init Bag"
-		initGB --> "init all players board"
-		initGB --> "init CenterArea"
-		initGB --> "init Trash"
-		initGB --> "init Factories"	
-		}		
-}
-	
+:start game;
+end		
 @enduml
