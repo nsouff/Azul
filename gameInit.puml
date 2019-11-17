@@ -1,0 +1,21 @@
+@startuml
+title Game initialization
+partition App.main {
+	(*) --> "load GameConfiguration"
+	--> "create Game according to the GameConfiguration" as createG
+	'	--> "start Game"
+}
+
+partition Game {
+	createG -->"init GameBoard" as initGB
+	
+	partition Game.GameBoard {
+		initGB --> "init Bag"
+		initGB --> "init all players board"
+		initGB --> "init CenterArea"
+		initGB --> "init Trash"
+		initGB --> "init Factories"	
+		}		
+}
+	
+@enduml
