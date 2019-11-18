@@ -1,9 +1,6 @@
 @startuml
 
 Abstract class Tile {
-	-Area currentArea
-	+moveTo(int index, IndexedArea area)
-	+moveTo(UnidexedArea area)
 }
 
 
