@@ -33,9 +33,11 @@ interface Area {
 	+int size()
 	+boolean isEmpty()
 	+boolean moveTilesTo(Area area)
+	+boolean moveTileTo(int index, IndexedArea area)
+	+boolean moveTileTo(UnindexedArea area)
 }
-Area <|-- UnidexedArea
-interface UnidexedArea {
+Area <|-- UnindexedArea
+interface UnindexedArea {
 	+void add(Tile tile)
 }
 
@@ -44,7 +46,7 @@ interface IndexedArea {
 	+void add(int index, Tile tile)
 }
 
-UnidexedArea <|.. OffSideArea
+UnindexedArea <|.. OffSideArea
 abstract class OffSideArea {
 	-ArrayList<Tile> tiles
 }
@@ -58,14 +60,15 @@ OffSideArea <|-- Trash
 class Trash {
 
 }
-IndexedArea <|.. CommonArea
+UnindexedArea <|.. CommonArea
 abstract class CommonArea {
 	ArrayList<Tile> tiles
 }
 CommonArea <|-- CenterArea
-CommonArea <|-- Factorie
-class Factorie {
-	+ArrayList<Tile> createTiles(Bag bag)
+CommonArea <|-- Factory
+class Factory {
+	-Tile[]
+	+void fill(Bag bag)
 }
 
 abstract class PlayerArea
@@ -76,7 +79,7 @@ class Wall {
 	-ArrayList<ArrayList<Tile>> tiles
 }
 
-UnidexedArea <|.. Floor
+UnindexedArea <|.. Floor
 PlayerArea <|-- Floor
 class Floor {
 	-ArrayList<Tile> tiles
@@ -137,7 +140,7 @@ class GameBoard {
 	-ArrayList<PlayerBoard> playerBoards
 	-Bag bag
 	-Trash trash
-	-Factorie[] factories
+	-Factory[] factories
 	-CenterArea center
 	+init(GameConfiguration config)
 }
