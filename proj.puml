@@ -33,8 +33,6 @@ interface Area {
 	+int size()
 	+boolean isEmpty()
 	+boolean moveTilesTo(Area area)
-	+boolean moveTileTo(int index, IndexedArea area)
-	+boolean moveTileTo(UnindexedArea area)
 }
 Area <|-- UnindexedArea
 interface UnindexedArea {
@@ -61,10 +59,11 @@ class Trash {
 
 }
 UnindexedArea <|.. CommonArea
-abstract class CommonArea {
-	ArrayList<Tile> tiles
-}
+abstract class CommonArea
 CommonArea <|-- CenterArea
+class CenterArea {
+	-ArrayList<Tile>
+}
 CommonArea <|-- Factory
 class Factory {
 	-Tile[]
