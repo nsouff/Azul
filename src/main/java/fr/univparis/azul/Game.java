@@ -3,53 +3,49 @@ package fr.univparis.azul;
 import java.io.File;
 //import java.utils.ArrayList;
 
-public class Game implements RoundObserver {
-    private static class GameConfiguration {
-	private static int nbOfPlayers;
+public class Game {
+  private static class GameConfiguration {
+    private static int nbOfPlayers;
 
-	public static void loadFrom(File f) {
-	}
+    public static void loadFrom(File f) {
     }
+  }
 
-    private static class GameBoard {
-	// private static ArrayList<PlayerBoard> playerBoards;
-	// private static Bag bag;
-	// private static Trash trash;
-	// private static Factory[] factories;
-	// private static CenterArea center;
-	
-	public static void initGameBoard() {
-	    // initPlayerBoards();
-	    // bag = new Bag();
-	    // trash = new Trash();
-	    // initFactories();
-	    // initCenter();	    
-	}
-    }
-    
-    // private static ArrayList<Player> players;
-    // private static LinkedList<Round> rounds;
-    // private static Round currentRound;
-    private static Player winner;
+  private static class GameBoard {
+    // private static ArrayList<PlayerBoard> playerBoards;
+    // private static Bag bag;
+    // private static Trash trash;
+    // private static Factory[] factories;
+    // private static CenterArea center;
 
-    public static void initGame(File configFile) {
-	GameConfiguration.loadFrom(configFile);	
-	GameBoard.initGameBoard();
-	// initPlayers();
-	// initRounds();
-	winner = null; // ??
+    public static void initGameBoard() {
+      // initPlayerBoards();
+      // bag = new Bag();
+      // trash = new Trash();
+      // initFactories();
+      // initCenter();
     }
+  }
 
-    public static void play() {
-    }
+  // private static ArrayList<Player> players;
+  // private static LinkedList<Round> rounds;
+  // private static Round currentRound;
+  private static Player winner;
 
-    // peut-être pas nécessaire
-    public static void shutdown() {
-    }
+  public static void initGame(File configFile) {
+    GameConfiguration.loadFrom(configFile);
+    GameBoard.initGameBoard();
+    // initPlayers();
+    // initRounds();
+    // round.addObserver(Game.class)
+    winner = null; // ??
+  }
 
-    @Override
-    public void update(Player p) {
-	winner = p;
-    }
+  public static void play() {
+  }
+
+  // peut-être pas nécessaire
+  public static void shutdown() {
+  }
+
 }
-	
