@@ -2,8 +2,14 @@ package fr.univparis.azul.area;
 
 import fr.univparis.azul.tile.*;
 
+import java.util.*;
+
 public class Factory extends CommonArea {
 
+    private static final int size = 4;
+    {
+      tiles = new ArrayList<Tile>(size);
+    }
     @Override
     public Tile removeTile(Tile tile) {return null;}
 

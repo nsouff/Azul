@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class CenterArea extends CommonArea {
 
-  private ArrayList<Tile> tiles;
+  // tiles =  new SortedLinkedList<Tile>();
 
   @Override
   public Tile removeTile(Tile tile) {return null;}

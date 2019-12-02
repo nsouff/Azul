@@ -2,11 +2,11 @@ package fr.univparis.azul.area;
 
 import fr.univparis.azul.tile.*;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public abstract class OffSideArea implements UnindexedArea {
 
-  private ArrayList<Tile> tiles;
+  private LinkedList<Tile> tiles;
 
   @Override
   public Tile removeTile(Tile tile) {return null;}
