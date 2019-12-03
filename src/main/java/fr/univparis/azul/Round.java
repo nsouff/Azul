@@ -3,7 +3,7 @@ package fr.univparis.azul;
 import java.util.*;
 
 public class Round {
-  // private LinkedList<Player> players;
+  // private CircularLinkedList<Player> players;
 
   private Player winner = null;
 
