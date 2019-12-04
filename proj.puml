@@ -133,13 +133,13 @@ class Game {
 
 Game --> GameBoard : "init"
 GameBoard --* Game : "intern class"
-class GameBoard {
-	-ArrayList<PlayerBoard> playerBoards
+class GameBoard {	
 	-Bag bag
 	-Trash trash
-	-Factory[] factories
+	-ArrayList<Factory> factories
 	-CenterArea center
-	+init(GameConfiguration config)
+	+GameBoard(int nbOfPlayers)
+	-initFactories(int nbOfPlayers)
 }
 
 Round --> PlayerBoard : "observes"
