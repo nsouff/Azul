@@ -9,9 +9,6 @@ public class CenterArea extends CommonArea {
   // tiles =  new SortedLinkedList<Tile>();
 
   @Override
-  public Tile removeTile(Tile tile) {return null;}
-
-  @Override
   public int size() {return -1;}
 
   @Override

@@ -11,9 +11,6 @@ public class Factory extends CommonArea {
       tiles = new ArrayList<Tile>(size);
     }
     @Override
-    public Tile removeTile(Tile tile) {return null;}
-
-    @Override
     public int size() {return -1;}
 
     @Override

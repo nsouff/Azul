@@ -9,9 +9,6 @@ public abstract class OffSideArea implements UnindexedArea {
   private LinkedList<Tile> tiles;
 
   @Override
-  public Tile removeTile(Tile tile) {return null;}
-
-  @Override
   public int size() {return -1;}
 
   @Override

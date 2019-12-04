@@ -11,8 +11,6 @@ public class Wall extends PlayerArea implements IndexedArea {
   @Override
   public void add(int index, Tile tile){}
 
-  @Override
-  public Tile removeTile(Tile tile) {return null;}
 
   @Override
   public int size() {return -1;}

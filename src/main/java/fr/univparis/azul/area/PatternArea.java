@@ -27,8 +27,6 @@ public class PatternArea extends PlayerArea implements IndexedArea {
       else if (list.get(0).getColor() == ( (ColoredTile) tile).getColor()) list.add((ColoredTile) tile);
     }
 
-    @Override
-    public Tile removeTile(Tile tile) {return null;}
 
     @Override
     public int size() {return -1;}
