@@ -9,17 +9,38 @@ import fr.univparis.azul.tile.*;
 public class PatternAreaTest {
 
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void addTest() {
     PatternArea p = new PatternArea();
     ColoredTile t1 = new ColoredTile(ColoredTile.Colors.BLUE);
-    ColoredTile t2 = new ColoredTile(ColoredTile.Colors.BLUE);
-    Tile bad = new FirstTile();
+    ColoredTile t2 = new ColoredTile(ColoredTile.Colors.RED);
+    ColoredTile t3 = new ColoredTile(ColoredTile.Colors.RED);
     p.add(0, t1);
-    p.add(0, t2);
-    assertEquals(p.getColoredTile(0, 0), t1);
-    assertEquals(p.getColoredTile(0, 1), t2);
-    p.add(2, bad);
+    p.add(1, t2);
+    p.add(1, t3);
+    assertEquals(t1, p.getColoredTile(0, 0));
+    assertEquals(t2, p.getColoredTile(1, 0));
+    assertEquals(t3, p.getColoredTile(1, 1));
+  }
+
+  @Test(expected = PatternArea.PatternAreaIndexOutOfBoundsException.class)
+  public void addOutOfBoundsTest() {
+    PatternArea p = new PatternArea();
+    p.add(0, new ColoredTile(ColoredTile.Colors.BLUE));
+    p.add(0, new ColoredTile(ColoredTile.Colors.BLUE));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void cannotAddSpecialTileTest() {
+    Tile bad = new FirstTile();
+    new PatternArea().add(0, bad);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void cannotAddDifferentColorTest() {
+    PatternArea p = new PatternArea();
+    p.add(1, new ColoredTile(ColoredTile.Colors.BLUE));
+    p.add(1, new ColoredTile(ColoredTile.Colors.RED));
   }
 
 }

@@ -15,6 +15,8 @@ public class PatternArea extends PlayerArea implements IndexedArea {
       }
     }
 
+    public static class PatternAreaIndexOutOfBoundsException extends ArrayIndexOutOfBoundsException {}
+
     public ColoredTile getColoredTile(int i, int j) {
       return tiles.get(i).get(j);
     }
@@ -24,7 +26,15 @@ public class PatternArea extends PlayerArea implements IndexedArea {
       if (! (tile instanceof ColoredTile)) throw new IllegalArgumentException();
       ArrayList<ColoredTile> list = tiles.get(index);
       if (list.isEmpty()) list.add((ColoredTile) tile);
-      else if (list.get(0).getColor() == ( (ColoredTile) tile).getColor()) list.add((ColoredTile) tile);
+      else if (list.get(0).getColor() == ( (ColoredTile) tile).getColor()) {
+        if (isFull(index)) throw new PatternAreaIndexOutOfBoundsException();
+        else list.add((ColoredTile) tile);
+      }
+      else throw new IllegalArgumentException();
+    }
+
+    public boolean isFull(int index) {
+      return (tiles.get(index).size() == index + 1);
     }
 
 
