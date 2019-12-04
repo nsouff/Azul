@@ -6,10 +6,26 @@ import java.util.ArrayList;
 
 public class PatternArea extends PlayerArea implements IndexedArea {
 
-    private ArrayList<ArrayList<Tile>> tiles;
+    private ArrayList<ArrayList<ColoredTile>> tiles;
+
+    public PatternArea() {
+      tiles = new ArrayList<ArrayList<ColoredTile>>(5);
+      for (int i = 1; i < 6; i++) {
+        tiles.add(new ArrayList<ColoredTile>(i));
+      }
+    }
+
+    public ColoredTile getColoredTile(int i, int j) {
+      return tiles.get(i).get(j);
+    }
 
     @Override
-    public void add(int index, Tile tile){}
+    public void add(int index, Tile tile){
+      if (! (tile instanceof ColoredTile)) throw new IllegalArgumentException();
+      ArrayList<ColoredTile> list = tiles.get(index);
+      if (list.isEmpty()) list.add((ColoredTile) tile);
+      else if (list.get(0).getColor() == ( (ColoredTile) tile).getColor()) list.add((ColoredTile) tile);
+    }
 
     @Override
     public Tile removeTile(Tile tile) {return null;}
