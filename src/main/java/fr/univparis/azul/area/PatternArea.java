@@ -39,7 +39,11 @@ public class PatternArea extends PlayerArea implements IndexedArea {
 
 
     @Override
-    public int size() {return -1;}
+    public int size() {
+      int count = 0;
+      for (ArrayList<ColoredTile> list : tiles) count += list.size();
+      return count;
+    }
 
     @Override
     public boolean isEmpty() {return true;}

@@ -43,4 +43,15 @@ public class PatternAreaTest {
     p.add(1, new ColoredTile(ColoredTile.Colors.RED));
   }
 
+  @Test
+  public void sizeTest() {
+    PatternArea p = new PatternArea();
+    p.add(0, new ColoredTile(ColoredTile.Colors.BLUE));
+    p.add(1, new ColoredTile(ColoredTile.Colors.BLUE));
+    p.add(1, new ColoredTile(ColoredTile.Colors.BLUE));
+    assertEquals(3, p.size());
+  }
+
+  
+
 }
