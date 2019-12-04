@@ -29,7 +29,6 @@ enum Colors {
 
 
 interface Area {
-	+Tile removeTile(Tile tile)
 	+int size()
 	+boolean isEmpty()
 	+boolean moveTilesTo(Area area)
@@ -59,14 +58,12 @@ class Trash {
 
 }
 UnindexedArea <|.. CommonArea
-abstract class CommonArea
-CommonArea <|-- CenterArea
-class CenterArea {
-	-ArrayList<Tile>
+abstract class CommonArea {
+	- Collection<Tile> tiles
 }
+CommonArea <|-- CenterArea
 CommonArea <|-- Factory
 class Factory {
-	-Tile[]
 	+void fill(Bag bag)
 }
 
