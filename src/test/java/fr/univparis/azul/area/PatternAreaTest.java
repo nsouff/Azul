@@ -52,6 +52,14 @@ public class PatternAreaTest {
     assertEquals(3, p.size());
   }
 
-  
+  @Test
+  public void isEmptyTest() {
+    PatternArea p = new PatternArea();
+    assertTrue(p.isEmpty());
+    p.add(3, new ColoredTile(ColoredTile.Colors.RED));
+    assertFalse(p.isEmpty());
+  }
+
+
 
 }

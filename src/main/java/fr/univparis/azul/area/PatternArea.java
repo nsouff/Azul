@@ -23,7 +23,7 @@ public class PatternArea extends PlayerArea implements IndexedArea {
 
     @Override
     public void add(int index, Tile tile){
-      if (! (tile instanceof ColoredTile)) throw new IllegalArgumentException();
+      if (! (tile instanceof ColoredTile) || index > 4 || index < 0) throw new IllegalArgumentException();
       ArrayList<ColoredTile> list = tiles.get(index);
       if (list.isEmpty()) list.add((ColoredTile) tile);
       else if (list.get(0).getColor() == ( (ColoredTile) tile).getColor()) {
@@ -46,7 +46,11 @@ public class PatternArea extends PlayerArea implements IndexedArea {
     }
 
     @Override
-    public boolean isEmpty() {return true;}
+    public boolean isEmpty() {
+      boolean res = true;
+      for (ArrayList<ColoredTile> list : tiles) res &= list.isEmpty();
+      return res;
+    }
 
     @Override
     public boolean moveTilesTo(Area area) {return false;}
