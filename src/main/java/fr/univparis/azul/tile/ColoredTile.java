@@ -1,6 +1,6 @@
 package fr.univparis.azul.tile;
-public class ColoredTile {
-  enum Colors {
+public class ColoredTile extends Tile{
+  public enum Colors {
     BLUE,
     RED,
     GREEN,
@@ -9,6 +9,11 @@ public class ColoredTile {
   }
 
   private Colors color;
+
+  public ColoredTile(Colors c) {
+    color = c;
+  }
+
   public Colors getColor() {return color;}
 
 }
