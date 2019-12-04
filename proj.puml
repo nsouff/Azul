@@ -123,12 +123,10 @@ Game --> Round : "observes"
 class Game {
 	-GameConfiguration config
 	-ArrayList<Player> players
-	-GameBoard board
-	-LinkedList<Round> rounds
-	-Round currentRound
+	-GameBoard board	
+	-Round round
 	-Player winner
-	-void loadConfig(GameConfiguration config)
-	+void init(GameConfiguration config)
+	+Game(File gameConfig)
 	+void play()
 	+void shutdown()
 }
