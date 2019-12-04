@@ -59,7 +59,7 @@ class Trash {
 }
 UnindexedArea <|.. CommonArea
 abstract class CommonArea {
-	- Collection<Tile> tiles
+	- List<Tile> tiles
 }
 CommonArea <|-- CenterArea
 CommonArea <|-- Factory
@@ -120,7 +120,7 @@ Game --> Round : "observes"
 class Game {
 	-GameConfiguration config
 	-ArrayList<Player> players
-	-GameBoard board	
+	-GameBoard board
 	-Round round
 	-Player winner
 	+Game(File gameConfig)
@@ -130,7 +130,7 @@ class Game {
 
 Game --> GameBoard : "init"
 GameBoard --* Game : "intern class"
-class GameBoard {	
+class GameBoard {
 	-Bag bag
 	-Trash trash
 	-ArrayList<Factory> factories
