@@ -8,13 +8,6 @@ import fr.univparis.azul.tile.*;
 
 public class PatternAreaTest {
 
-  //@Test(expected = NullPointerException.class)
-  //public void notAddingSpecialTileTest() {
-  //  PatternArea p = new PatternArea();
-  //  Tile bad = new FirstTile();
-  //  p.add(0, bad);
-  //  System.out.println(p.getColoredTile(0, 0));
-  //}
 
   @Test(expected = IllegalArgumentException.class)
   public void addTest() {
