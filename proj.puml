@@ -120,25 +120,23 @@ Game --> Round : "observes"
 class Game {
 	-GameConfiguration config
 	-ArrayList<Player> players
-	-GameBoard board
-	-LinkedList<Round> rounds
-	-Round currentRound
+	-GameBoard board	
+	-Round round
 	-Player winner
-	-void loadConfig(GameConfiguration config)
-	+void init(GameConfiguration config)
+	+Game(File gameConfig)
 	+void play()
 	+void shutdown()
 }
 
 Game --> GameBoard : "init"
 GameBoard --* Game : "intern class"
-class GameBoard {
-	-ArrayList<PlayerBoard> playerBoards
+class GameBoard {	
 	-Bag bag
 	-Trash trash
-	-Factory[] factories
+	-ArrayList<Factory> factories
 	-CenterArea center
-	+init(GameConfiguration config)
+	+GameBoard(int nbOfPlayers)
+	-initFactories(int nbOfPlayers)
 }
 
 Round --> PlayerBoard : "observes"
@@ -149,7 +147,8 @@ class PlayerBoard {
 }
 
 class Round {
-	-LinkedList<Player> players
+	-CircularLinkedList<Player> players
+	+Round(List<Player> players, Player firstPlayer)
 	+preparationPhase()
 	+offerPhase()
 	+decorationPhase()
