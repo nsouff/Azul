@@ -7,30 +7,30 @@ import org.apache.commons.io.FileUtils;
 import org.json.*;
 
 public class Game {
-    private static class GameConfiguration {
-	private static int nbOfPlayers;
+    private class GameConfiguration {
+	private int nbOfPlayers;
 
-	public static void loadFrom(File f) throws Exception {
+	public GameConfiguration(File f) throws Exception {
 	    JSONObject json = new JSONObject (FileUtils.readFileToString(f,"utf-8"));
 
 	    nbOfPlayers = json.getInt("nb_of_players");
 	}
     }
 
-    private static class GameBoard {
-	private static Bag bag;
-	private static Trash trash;
-	private static ArrayList<Factory> factories;
-	private static CenterArea center;
+    public class GameBoard {
+	private Bag bag;
+	private Trash trash;
+	private ArrayList<Factory> factories;
+	private CenterArea center;
 
-	public static void initGameBoard() {
+	public GameBoard(int nbOfPlayers) {
 	    bag = new Bag();
 	    trash = new Trash();
-	    initFactories(GameConfiguration.nbOfPlayers);
+	    initFactories(nbOfPlayers);
 	    center = new CenterArea();
 	}
-
-	private static void initFactories(int nbOfPlayers) {
+	
+	private void initFactories(int nbOfPlayers) {
 	    int n = 0;
 	    switch(nbOfPlayers) {
 	    case 2:
@@ -51,37 +51,39 @@ public class Game {
 	    fillWithFactory(n);
 	}
 
-	private static void fillWithFactory(int n) {
+	private void fillWithFactory(int n) {
 	    for(int i=0; i < n; i++) {
 		factories.add(new Factory());
 	    }
 	}
     }
 
-    private static ArrayList<Player> players;
-    private static Round round;
-    private static Player winner;
+    private GameConfiguration config;
+    private ArrayList<Player> players;
+    private GameBoard board;
+    private Round round;
+    private Player winner;
 
-    public static void initGame(File configFile) throws Exception {
-	GameConfiguration.loadFrom(configFile);
+    public Game(File gameConfig) throws Exception {
+	config = new GameConfiguration(gameConfig);
 
-	initPlayers(GameConfiguration.nbOfPlayers);
+	initPlayers(config.nbOfPlayers);
 
-	GameBoard.initGameBoard();
+	board = new GameBoard(config.nbOfPlayers);
 	
-	round = new Round();//nécessite probablement un argument pour savoir qui commence
+	round = new Round(players, players.get(0));
 	
 	winner = null;
     }
 
-    public static void play() {
+    public void play() {
     }
 
     // peut-être pas nécessaire
-    public static void shutdown() {
+    public void shutdown() {
     }
 
-    private static void initPlayers(int nbOfPlayers) {
+    private void initPlayers(int nbOfPlayers) {
 	if( nbOfPlayers <= 1 || nbOfPlayers > 4 )
 	    throw new RuntimeException("Invalid number of players");
 

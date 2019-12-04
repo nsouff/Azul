@@ -3,25 +3,30 @@ package fr.univparis.azul;
 import java.util.*;
 
 public class Round {
-  // private CircularLinkedList<Player> players;
+    // private CircularLinkedList<Player> players;
 
-  private Player winner = null;
+    private Player winner = null;
 
-  public void preparationPhase() {
+    public Round(List<Player> players, Player firstPlayer) {
+	// on initialise this.players avec players et firstPlayer. à préciser
+    }
+    
+    
+    public void preparationPhase() {
+ 	
+    }
 
-  }
+    public void offerPhase() {
+	// for ( Player p : players ) {
+	//     p.canPlay(true);
+	//     p.play();
+	//     p.canPlay(false);
+	// }
+    }
 
-  public void offerPhase() {
-    // for ( Player p : players ) {
-    //     p.canPlay(true);
-    //     p.play();
-    //     p.canPlay(false);
-    // }
-  }
+    public void decorationPhase() {
 
-  public void decorationPhase() {
-
-  }
+    }
 
 
 }
