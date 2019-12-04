@@ -152,7 +152,8 @@ class PlayerBoard {
 }
 
 class Round {
-	-LinkedList<Player> players
+	-CircularLinkedList<Player> players
+	+Round(List<Player> players, Player firstPlayer)
 	+preparationPhase()
 	+offerPhase()
 	+decorationPhase()
