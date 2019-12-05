@@ -52,7 +52,4 @@ public class PatternArea extends PlayerArea implements IndexedArea {
       return res;
     }
 
-    @Override
-    public boolean moveTilesTo(Area area) {return false;}
-
 }

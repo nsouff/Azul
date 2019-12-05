@@ -15,9 +15,6 @@ public abstract class OffSideArea implements UnindexedArea {
   public boolean isEmpty(){return true;}
 
   @Override
-  public boolean moveTilesTo(Area area) {return false;}
-
-  @Override
   public void add(Tile tile) {}
 
 

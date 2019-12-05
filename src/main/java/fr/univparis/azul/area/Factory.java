@@ -17,9 +17,6 @@ public class Factory extends CommonArea {
     public boolean isEmpty(){return true;}
 
     @Override
-    public boolean moveTilesTo(Area area) {return false;}
-
-    @Override
     public void add(Tile tile) {}
 
 }

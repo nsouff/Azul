@@ -8,7 +8,5 @@ public interface Area {
 
   public boolean isEmpty();
 
-  public boolean moveTilesTo(Area area);
-
 
 }

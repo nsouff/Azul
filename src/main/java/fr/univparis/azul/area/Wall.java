@@ -18,9 +18,6 @@ public class Wall extends PlayerArea implements IndexedArea {
   @Override
   public boolean isEmpty() {return true;}
 
-  @Override
-  public boolean moveTilesTo(Area area) {return false;}
-
 
 
 
