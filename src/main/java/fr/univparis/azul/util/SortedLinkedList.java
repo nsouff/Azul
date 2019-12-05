@@ -30,4 +30,9 @@ public class SortedLinkedList<E> {
 	return list.isEmpty();
     }
 
+    public int size() {
+	return list.size();
+    }
+
+
 }
