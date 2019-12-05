@@ -26,4 +26,8 @@ public class SortedLinkedList<E> {
 	return list.get(index);
     }
 
+    public boolean isEmpty() {
+	return list.isEmpty();
+    }
+
 }

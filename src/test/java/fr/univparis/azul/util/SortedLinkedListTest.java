@@ -33,4 +33,19 @@ public class SortedLinkedListTest {
 	assertSame(list.get(2), t3);
 	assertSame(list.get(3), t4);
     }
+
+    @Test
+    public void isEmptyTest() {
+	SortedLinkedList<ColoredTile> list = new SortedLinkedList( new Comparator<ColoredTile>() {
+		public int compare(ColoredTile t1, ColoredTile t2) {
+		    return t1.getColor().ordinal() - t2.getColor().ordinal(); // BLUE < RED < GREEN < BLACK < YELLOW
+		}
+	    });
+	
+	assertTrue(list.isEmpty());
+
+	list.add(new ColoredTile(ColoredTile.Colors.BLUE));
+
+	assertFalse(list.isEmpty());
+    }
 }
