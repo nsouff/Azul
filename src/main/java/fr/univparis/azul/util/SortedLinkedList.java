@@ -34,5 +34,11 @@ public class SortedLinkedList<E> {
 	return list.size();
     }
 
+    public E remove(int index) {
+	return list.remove(index);
+    }
 
+    public boolean remove(Object o) {
+	return list.remove(o);
+    }
 }
