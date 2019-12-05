@@ -31,7 +31,6 @@ enum Colors {
 interface Area {
 	+int size()
 	+boolean isEmpty()
-	+boolean moveTilesTo(Area area)
 }
 Area <|-- UnindexedArea
 interface UnindexedArea {
