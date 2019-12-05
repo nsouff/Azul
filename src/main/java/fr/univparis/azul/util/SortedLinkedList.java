@@ -1,9 +1,11 @@
 package fr.univparis.azul.util;
 
+import java.lang.Iterable;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 
-public class SortedLinkedList<E> {
+public class SortedLinkedList<E> implements Iterable<E> {
     LinkedList<E> list;
     Comparator<E> comp;
 
@@ -41,4 +43,10 @@ public class SortedLinkedList<E> {
     public boolean remove(Object o) {
 	return list.remove(o);
     }
+
+    @Override
+    public Iterator<E> iterator() {
+	return list.iterator();
+    }
+
 }
