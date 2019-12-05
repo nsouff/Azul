@@ -10,14 +10,18 @@ import org.junit.Test;
 
 public class SortedLinkedListTest {
 
-    @Test
-    public void addTest() {
-	SortedLinkedList<ColoredTile> list = new SortedLinkedList( new Comparator<ColoredTile>() {
+    private static SortedLinkedList<ColoredTile> createList() {
+        return new SortedLinkedList( new Comparator<ColoredTile>() {
 		public int compare(ColoredTile t1, ColoredTile t2) {
 		    return t1.getColor().ordinal() - t2.getColor().ordinal(); // BLUE < RED < GREEN < BLACK < YELLOW
 		}
 	    });
-
+    }
+    
+    @Test
+    public void addGetTest() {
+	SortedLinkedList<ColoredTile> list = createList();
+	
 	ColoredTile t1 = new ColoredTile(ColoredTile.Colors.BLUE);
 	ColoredTile t2 = new ColoredTile(ColoredTile.Colors.BLUE);
 	ColoredTile t3 = new ColoredTile(ColoredTile.Colors.RED);
@@ -36,11 +40,7 @@ public class SortedLinkedListTest {
 
     @Test
     public void isEmptyTest() {
-	SortedLinkedList<ColoredTile> list = new SortedLinkedList( new Comparator<ColoredTile>() {
-		public int compare(ColoredTile t1, ColoredTile t2) {
-		    return t1.getColor().ordinal() - t2.getColor().ordinal(); // BLUE < RED < GREEN < BLACK < YELLOW
-		}
-	    });
+	SortedLinkedList<ColoredTile> list = createList();
 	
 	assertTrue(list.isEmpty());
 
