@@ -18,10 +18,10 @@ public class Game {
     }
 
     public class GameBoard {
-	private Bag bag;
-	private Trash trash;
-	private ArrayList<Factory> factories;
-	private CenterArea center;
+	Bag bag;
+	Trash trash;
+	ArrayList<Factory> factories;
+	CenterArea center;
 
 	public GameBoard(int nbOfPlayers) {
 	    bag = new Bag();
@@ -77,6 +77,13 @@ public class Game {
     }
 
     public void play() {
+	// tant qu 'il n'y a pas de mur avec une ligne remplie {
+	board.initFactories(players.size());
+	board.center = new CenterArea();
+	round.preparationPhase(board);
+	round.offerPhase(board);
+	round.decorationPhase();
+	// }
     }
 
     // peut-être pas nécessaire
