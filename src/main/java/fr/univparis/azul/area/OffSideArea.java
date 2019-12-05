@@ -6,16 +6,21 @@ import java.util.LinkedList;
 
 public abstract class OffSideArea implements UnindexedArea {
 
-  private LinkedList<Tile> tiles;
+  protected LinkedList<Tile> tiles;
+
+  public OffSideArea() {tiles = new LinkedList<Tile>();}
 
   @Override
-  public int size() {return -1;}
+  public int size() {return tiles.size();}
 
   @Override
-  public boolean isEmpty(){return true;}
+  public boolean isEmpty(){return tiles.isEmpty();}
 
   @Override
-  public void add(Tile tile) {}
+  public void add(Tile tile) {
+    tiles.add(tile);
+  }
 
 
+  protected LinkedList<Tile> getTiles() {return tiles;}
 }
