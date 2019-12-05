@@ -55,7 +55,7 @@ public class CircularLinkedList<E> {
       Node<E> actual = null;
 
       @Override
-      public boolean hasNext() {return true;}
+      public boolean hasNext() {throw new UnsupportedOperationException();}
 
       @Override
       public E next() {
