@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class SortedLinkedList<E> implements Iterable<E> {
-    LinkedList<E> list;
-    Comparator<E> comp;
+    private LinkedList<E> list;
+    private Comparator<E> comp;
 
     public SortedLinkedList(Comparator<E> c) {
 	list = new LinkedList<E>();
@@ -44,9 +44,12 @@ public class SortedLinkedList<E> implements Iterable<E> {
 	return list.remove(o);
     }
 
+    public boolean contains(Object o) {
+	return list.contains(o);
+    }
+
     @Override
     public Iterator<E> iterator() {
 	return list.iterator();
     }
-
 }
