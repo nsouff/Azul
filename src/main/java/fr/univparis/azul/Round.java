@@ -24,7 +24,7 @@ public class Round {
     }
     
     
-    public void preparationPhase(Game.GameBoard board) {
+    public void preparationPhase() {
 	board.center.add(new FirstTile());
 	
 	if( board.bag.isEmpty() ) {

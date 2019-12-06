@@ -80,7 +80,7 @@ public class Game { // implements WallObserver
 	// tant qu 'il n'y a pas de mur avec une ligne remplie {
 	board.initFactories(players.size());
 	board.center = new CenterArea();
-	round.preparationPhase(board);
+	round.preparationPhase();
 	round.offerPhase(board);
 	round.decorationPhase();
 	// }
