@@ -62,7 +62,6 @@ public class Game { // implements WallObserver
     private ArrayList<Player> players;
     private GameBoard board;
     private Round round;
-    private Player winner;
 
     public Game(File gameConfig) throws Exception {
 	config = new GameConfiguration(gameConfig);
@@ -71,11 +70,28 @@ public class Game { // implements WallObserver
 
 	board = new GameBoard(config.nbOfPlayers);
 	
-	round = new Round(players, players.get(0), board);
-	
-	winner = null;
+	round = new Round(players, players.get(0), board);	
     }
 
+    public List<Player> getWinners() {
+	List<Player> winners = new LinkedList<Player>();
+	winners.add( players.get(0) );
+	
+	int max = winners.get(0).getStats().getTotalScore();
+	
+	for( Player p : players ) {
+	    int pScore = p.getStats().getTotalScore();	   
+	    if( max < pScore ) {
+		winners.clear();
+		winners.add(p);
+		max = pScore;
+	    } else if ( max == pScore ) {
+		winners.add(p);
+	    }
+	}
+	return winners;
+    }
+    
     public void play() {
 	// tant qu 'il n'y a pas de mur avec une ligne remplie {
 	board.initFactories(players.size());

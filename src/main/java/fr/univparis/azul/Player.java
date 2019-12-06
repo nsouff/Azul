@@ -4,11 +4,15 @@ import fr.univparis.azul.area.*;
 import java.util.*;
 
 public abstract class Player {
-    private class Stat { // peut être protected
+    public class Stat { // peut être protected
 	private int totalScore = 0;
 	private LinkedList<Integer> scorePerRound = new LinkedList<Integer>();
 	private String name;
 	private boolean isHuman;
+
+	public int getTotalScore() {
+	    return totalScore;
+	}
     }
 
     private class PlayerBoard { // peut être protected
@@ -35,4 +39,7 @@ public abstract class Player {
 	return playerBoard;
     }
 
+    public Stat getStats() {
+	return stats;
+    }
 }
