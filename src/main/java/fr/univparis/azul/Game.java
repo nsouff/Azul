@@ -61,16 +61,13 @@ public class Game { // implements WallObserver
     private GameConfiguration config;
     private ArrayList<Player> players;
     private GameBoard board;
-    private Round round;
 
     public Game(File gameConfig) throws Exception {
 	config = new GameConfiguration(gameConfig);
 
 	initPlayers(config.nbOfPlayers);
 
-	board = new GameBoard(config.nbOfPlayers);
-	
-	round = new Round(players, players.get(0), board);	
+	board = new GameBoard(config.nbOfPlayers);	
     }
 
     public List<Player> getWinners() {
@@ -93,13 +90,22 @@ public class Game { // implements WallObserver
     }
     
     public void play() {
-	// tant qu 'il n'y a pas de mur avec une ligne remplie {
-	board.initFactories(players.size());
-	board.center = new CenterArea();
-	round.preparationPhase();
-	round.offerPhase();
-	round.decorationPhase();
-	// }
+	boolean playing = true;
+	Round round = new Round(players, players.get(0), board);	
+	do {
+	    board.initFactories(players.size());
+	    board.center = new CenterArea();
+
+	    round.preparationPhase();
+	    round.offerPhase();
+	    round.decorationPhase();
+	    // if ( ! aucunMurNADeLigneRemplie() ) {
+	    // 	playing = false;
+	    // } else {
+	    // 	Player first = ;// obtenir le joueur possédant la tile 1er joueur
+	    // 	round.getPlayers().setFirst( first ); // écrire une méthode dans Round pour faire ça
+	    // }
+	} while ( playing );
     }
 
     // peut-être pas nécessaire
