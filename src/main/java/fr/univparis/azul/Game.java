@@ -81,7 +81,7 @@ public class Game { // implements WallObserver
 	board.initFactories(players.size());
 	board.center = new CenterArea();
 	round.preparationPhase();
-	round.offerPhase(board);
+	round.offerPhase();
 	round.decorationPhase();
 	// }
     }

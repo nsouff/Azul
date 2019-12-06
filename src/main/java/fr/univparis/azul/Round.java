@@ -34,21 +34,19 @@ public class Round {
 	// board.bag.fill(board.factories);
     }
 
-    public void offerPhase(Game.GameBoard board) {
-	// iterator<Player> it = players.iterator();
-	// while ( !areFactoriesEmpty(board) ) {
- 	//     Player currentPlayer = it.next();
-	//     while( currentPlayer.havePlayed() ) {
-	//     	currentPlayer.play();
-	//     }
-	// }
+    public void offerPhase() {
+	Iterator<Player> it = players.iterator();
+	while ( !areFactoriesEmpty() ) {
+ 	    Player currentPlayer = it.next();
+	    // currentPlayer.play();	    
+	}
     }
 
     public void decorationPhase() {
 	
     }
 
-    private boolean areFactoriesEmpty(Game.GameBoard board) {
+    private boolean areFactoriesEmpty() {
 	for( Factory f : board.factories ) {
 	    if ( ! f.isEmpty() )
 		return false;
