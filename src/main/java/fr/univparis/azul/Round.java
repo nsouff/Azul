@@ -3,14 +3,24 @@ package fr.univparis.azul;
 import java.util.*;
 import fr.univparis.azul.tile.*;
 import fr.univparis.azul.area.*;
+import fr.univparis.azul.util.*;
 
 // agit comme un automate
 public class Round {
-    // private CircularLinkedList<Player> players;
+    private CircularLinkedList<Player> players;
+    private Game.GameBoard board;
+    
+    public Round(List<Player> p, Player firstPlayer, Game.GameBoard b) {
+	initPlayers(p, firstPlayer);
+	board = b;
+    }
 
-    public Round(List<Player> players, Player firstPlayer) {
-	// on initialise this.players avec players et firstPlayer. à préciser
-	// players = new CircularLinkedList(players, firstPlayer);
+    private void initPlayers(List<Player> p, Player firstPlayer) {
+	players = new CircularLinkedList<Player>();
+	for( Player player : p) {
+	    players.add(player);
+	}
+	players.setFirst(firstPlayer);
     }
     
     

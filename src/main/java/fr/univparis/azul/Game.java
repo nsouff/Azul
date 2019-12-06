@@ -6,7 +6,7 @@ import java.util.*;
 import org.apache.commons.io.FileUtils;
 import org.json.*;
 
-public class Game {
+public class Game { // implements WallObserver
     private class GameConfiguration {
 	private int nbOfPlayers;
 
@@ -71,7 +71,7 @@ public class Game {
 
 	board = new GameBoard(config.nbOfPlayers);
 	
-	round = new Round(players, players.get(0));
+	round = new Round(players, players.get(0), board);
 	
 	winner = null;
     }
