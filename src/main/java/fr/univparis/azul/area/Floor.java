@@ -2,11 +2,11 @@ package fr.univparis.azul.area;
 
 import fr.univparis.azul.tile.*;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Floor extends PlayerArea implements UnindexedArea {
 
-  private ArrayList<Tile> tiles;
+  private LinkedList<Tile> tiles;
 
   @Override
   public int size() {return tiles.size();}
