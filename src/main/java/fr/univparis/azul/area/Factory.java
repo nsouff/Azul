@@ -11,9 +11,9 @@ public class Factory extends CommonArea {
       tiles = new ArrayList<Tile>(size);
     }
 
-    private class FullFactoryException extends IllegalStateException {}
+    protected static class FullFactoryException extends IllegalStateException {}
 
-    private class NotEmptyFactoryException extends IllegalStateException {}
+    protected static class NotEmptyFactoryException extends IllegalStateException {}
 
     @Override
     public int size() {return tiles.size();}
