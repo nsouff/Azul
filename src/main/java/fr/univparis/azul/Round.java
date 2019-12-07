@@ -36,7 +36,7 @@ public class Round {
 
     public void offerPhase() {
 	Iterator<Player> it = players.iterator();
-	while ( !areFactoriesEmpty() ) {
+	while ( !areFactoriesEmpty() && !isCenterEmpty() ) {
  	    Player currentPlayer = it.next();
 	    // currentPlayer.play();	    
 	}
@@ -52,6 +52,10 @@ public class Round {
 		return false;
 	}
 	return true;
+    }
+
+    private boolean isCenterEmpty() {
+	return board.center.isEmpty();
     }
     
     
