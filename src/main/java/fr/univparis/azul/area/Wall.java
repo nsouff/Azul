@@ -35,7 +35,12 @@ public class Wall extends PlayerArea implements IndexedArea {
     return true;
   }
 
-
-
+  public boolean hasRow() {
+    for (ArrayList<ColoredTile> array : tiles ) {
+      if( array.size() == 5 )
+        return true;
+    }
+    return false;
+  }
 
 }

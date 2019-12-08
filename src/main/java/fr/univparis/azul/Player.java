@@ -15,7 +15,7 @@ public abstract class Player {
 	}
     }
 
-    private class PlayerBoard { // peut être protected
+    public class PlayerBoard { // peut être protected
 	private Wall playerWall;
 	private Floor playerFloor;
 	private PatternArea playerPatternArea;
@@ -24,6 +24,10 @@ public abstract class Player {
 	    playerWall = new Wall();
 	    playerFloor = new Floor();
 	    playerPatternArea = new PatternArea();
+	}
+	
+	public Wall getWall() {
+	    return playerWall;
 	}
     }
 
@@ -42,4 +46,5 @@ public abstract class Player {
     public Stat getStats() {
 	return stats;
     }
+
 }

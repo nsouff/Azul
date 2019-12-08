@@ -1,9 +1,9 @@
 package fr.univparis.azul;
 
-import java.util.*;
-import fr.univparis.azul.tile.*;
 import fr.univparis.azul.area.*;
+import fr.univparis.azul.tile.*;
 import fr.univparis.azul.util.*;
+import java.util.*;
 
 // agit comme un automate
 public class Round {
@@ -30,8 +30,9 @@ public class Round {
 	if( board.bag.isEmpty() ) {
 	    board.bag.refill(board.trash);
 	}
-	
-	// board.bag.fill(board.factories);
+
+	for( Factory f : board.factories )
+	    f.fill(board.bag);
     }
 
     public void offerPhase() {
@@ -56,7 +57,5 @@ public class Round {
 
     private boolean isCenterEmpty() {
 	return board.center.isEmpty();
-    }
-    
-    
+    }    
 }
