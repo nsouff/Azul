@@ -15,6 +15,7 @@ public class FactoryTest {
   @Test
   public void fillTest() {
     Bag bag  = new Bag();
+    bag.tiles.clear();
     ColoredTile t1 = new ColoredTile(ColoredTile.Colors.GREEN);
     ColoredTile t2 = new ColoredTile(ColoredTile.Colors.GREEN);
     ColoredTile t3 = new ColoredTile(ColoredTile.Colors.GREEN);

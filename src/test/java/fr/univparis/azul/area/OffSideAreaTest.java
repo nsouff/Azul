@@ -22,6 +22,7 @@ public class OffSideAreaTest {
     LinkedList<Tile> tiles = new LinkedList<Tile>();
     tiles.add(t1); tiles.add(t2); tiles.add(t3);
     Bag bag = new Bag();
+    bag.tiles.clear();
     bag.refill(trash);
     assertTrue(trash.isEmpty());
     assertTrue(bag.tiles.containsAll(tiles));
