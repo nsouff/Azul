@@ -31,8 +31,9 @@ public abstract class Player {
 	}
     }
 
-    public Player() {
+    public Player(String name) {
 	stats = new Stat();
+	stats.name = name;
 	playerBoard = new PlayerBoard();
     }
 

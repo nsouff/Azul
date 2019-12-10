@@ -120,7 +120,7 @@ public class Game { // implements WallObserver
 	players = new ArrayList<Player>(nbOfPlayers);
 
 	for(int i=0; i < nbOfPlayers; i++) {
-	    players.add(new HumanPlayer()); //pour l'instant on initialise que des joueurs humains
+	    players.add(new HumanPlayer(String.valueOf(i))); //pour l'instant on initialise que des joueurs humains
 	}	
     }
 

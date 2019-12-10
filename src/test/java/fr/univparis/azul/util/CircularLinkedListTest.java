@@ -13,9 +13,9 @@ public class CircularLinkedListTest {
   @Test
   public void addTest() {
     CircularLinkedList<Player> c = new CircularLinkedList<Player>();
-    Player p1 = new HumanPlayer();
-    Player p2 = new HumanPlayer();
-    Player p3 = new HumanPlayer();
+    Player p1 = new HumanPlayer("p1");
+    Player p2 = new HumanPlayer("p2");
+    Player p3 = new HumanPlayer("p3");
     c.add(p1);
     c.add(p2);
     c.add(p3);
@@ -31,9 +31,9 @@ public class CircularLinkedListTest {
   @Test
   public void setFirstTest() {
     CircularLinkedList<Player> c = new CircularLinkedList<Player>();
-    Player p1 = new HumanPlayer();
-    Player p2 = new HumanPlayer();
-    Player p3 = new HumanPlayer();
+    Player p1 = new HumanPlayer("p1");
+    Player p2 = new HumanPlayer("p2");
+    Player p3 = new HumanPlayer("p3");
     c.add(p1);
     c.add(p2);
     c.add(p3);
