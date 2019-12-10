@@ -115,7 +115,7 @@ public class Game { // implements WallObserver
 
     private void initPlayers(int nbOfPlayers) {
 	if( nbOfPlayers <= 1 || nbOfPlayers > 4 )
-	    throw new RuntimeException("Invalid number of players");
+	    throw new IllegalArgumentException("Invalid number of players");
 
 	players = new ArrayList<Player>(nbOfPlayers);
 
