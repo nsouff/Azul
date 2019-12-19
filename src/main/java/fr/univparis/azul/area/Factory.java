@@ -33,4 +33,15 @@ public class Factory extends CommonArea {
       for (int i = 0; i < size; i++) add(bag.poll());
     }
 
+    public void moveTilesTo(UnindexedArea area, ColoredTile ct, CenterArea ca) {
+      for (Tile t : tiles) {
+        if (((ColoredTile)t).getColor() == ct.getColor()) {
+          area.add(t);
+        }
+        else ca.add(t);
+      }
+      tiles = new ArrayList<Tile>(size);
+
+    }
+
 }

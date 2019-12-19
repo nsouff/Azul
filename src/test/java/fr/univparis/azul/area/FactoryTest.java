@@ -46,4 +46,21 @@ public class FactoryTest {
   public void notColoredTileExceptionTest() {
     new Factory().add(new FirstTile());
   }
+
+  @Test
+  public void moveTilesToTest() {
+    Factory f = new Factory();
+    ColoredTile.Colors bl = ColoredTile.Colors.BLUE;
+    f.add(new ColoredTile(bl));
+    f.add(new ColoredTile(bl));
+    f.add(new ColoredTile(ColoredTile.Colors.GREEN));
+    f.add(new ColoredTile(bl));
+    CenterArea c = new CenterArea();
+    Floor floor = new Floor();
+    f.moveTilesTo(floor, new ColoredTile(bl), c);
+    assertEquals(0, f.size());
+    assertEquals(3, floor.size());
+    assertEquals(1, c.size());
+
+  }
 }
