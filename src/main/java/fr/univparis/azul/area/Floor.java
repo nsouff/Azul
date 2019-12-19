@@ -8,6 +8,10 @@ public class Floor extends PlayerArea implements UnindexedArea {
 
   private LinkedList<Tile> tiles;
 
+  public Floor() {
+    tiles = new LinkedList<Tile>();
+  }
+
   @Override
   public int size() {return tiles.size();}
 
