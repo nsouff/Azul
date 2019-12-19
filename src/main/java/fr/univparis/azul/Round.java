@@ -48,7 +48,7 @@ public class Round {
 	Iterator<Player> it = players.iterator();
 	Player stop = it.next();
 	Player player;
-	boolean row = false;
+	boolean rowDetected = false;
 	do {
 	    player = it.next();
 	    for(int i=0; i < 4; i++) {
@@ -62,11 +62,11 @@ public class Round {
 		    player.stats.addRoundScore(1);
 		    player.stats.addRoundScore( wall.nbAdjacentTile(i, cTile.getColor() ));
 		    player.stats.addRoundScore( -player.playerBoard.playerFloor.size() );
-
-		    row = wall.hasFullRow();
 		}
-	    }	    
+	    }
+	    if( !rowDetected )
+		rowDetected = player.playerBoard.playerWall.hasFullRow();
 	} while (player != stop);
-	return row;
+	return rowDetected;
     }
 }
