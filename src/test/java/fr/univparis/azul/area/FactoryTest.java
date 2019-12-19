@@ -61,6 +61,14 @@ public class FactoryTest {
     assertEquals(0, f.size());
     assertEquals(3, floor.size());
     assertEquals(1, c.size());
-
+    f.add(new ColoredTile(bl));
+    f.add(new ColoredTile(bl));
+    f.add(new ColoredTile(ColoredTile.Colors.GREEN));
+    f.add(new ColoredTile(bl));
+    PatternArea p = new PatternArea();
+    f.moveTilesTo(p, new ColoredTile(ColoredTile.Colors.BLUE), c, 4);
+    assertEquals(3, p.size());
+    assertEquals(0, f.size());
+    assertEquals(2, c.size());
   }
 }
