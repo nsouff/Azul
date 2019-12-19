@@ -56,6 +56,15 @@ public class Game { // implements WallObserver
 		factories.add(new Factory());
 	    }
 	}
+
+	
+        public boolean areFactoriesEmpty() {
+	    for( Factory f : factories ) {
+		if ( ! f.isEmpty() )
+		    return false;
+	    }
+	    return true;
+	}
     }
 
     private GameConfiguration config;

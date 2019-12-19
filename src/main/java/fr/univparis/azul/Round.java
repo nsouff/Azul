@@ -38,7 +38,7 @@ public class Round {
 
     public void offerPhase(Game.GameBoard board) {
 	Iterator<Player> it = players.iterator();
-	while ( !areFactoriesEmpty(board) && !isCenterEmpty(board) ) {
+	while ( !board.areFactoriesEmpty() && board.center.isEmpty() ) {
  	    Player currentPlayer = it.next();
 	    // currentPlayer.play();	    
 	}
@@ -65,16 +65,4 @@ public class Round {
 	    }	    
 	} while (player != stop);	
     }
-
-    private boolean areFactoriesEmpty(Game.GameBoard board) {
-	for( Factory f : board.factories ) {
-	    if ( ! f.isEmpty() )
-		return false;
-	}
-	return true;
-    }
-
-    private boolean isCenterEmpty(Game.GameBoard board) {
-	return board.center.isEmpty();
-    }    
 }
