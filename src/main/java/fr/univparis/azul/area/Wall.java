@@ -80,4 +80,39 @@ public class Wall extends PlayerArea implements IndexedArea {
 	return c;
     }
 
+        // FIXME : Refactoring needed
+    public int nbAdjacentTile(int row, ColoredTile.Colors color) {
+	int adj = 0;
+
+	int column = columnPos(row, color);
+	
+	// on regarde à droite
+	int i = column +1;	
+	while( i < 5 && tiles[row][i] != null ) {
+	    adj++;
+	    i++;
+	}
+
+	// en haut
+	i = row - 1;
+	while( i >= 0 && tiles[i][column] != null ) {
+	    adj++;
+	    i--;
+	}
+
+	// à gauche
+	i = column - 1;
+	while( i >= 0 && tiles[row][i] != null ) {
+	    adj++;
+	    i--;
+	}
+
+	// en bas
+	i = row + 1;
+	while( i < 5 && tiles[i][column] != null ) {
+	    adj++;
+	    i++;
+	}
+	return adj;
+    }
 }

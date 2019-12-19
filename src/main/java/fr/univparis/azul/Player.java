@@ -13,12 +13,17 @@ public abstract class Player {
 	public int getTotalScore() {
 	    return totalScore;
 	}
+
+	public void addRoundScore(int score) {	    
+	    scorePerRound.add( Integer.valueOf(score) );
+	    totalScore += score;
+	}
     }
 
     public class PlayerBoard { // peut être protected
-	private Wall playerWall;
-	private Floor playerFloor;
-	private PatternArea playerPatternArea;
+	Wall playerWall;
+	Floor playerFloor;
+	PatternArea playerPatternArea;
 
 	public PlayerBoard() {
 	    playerWall = new Wall();
@@ -37,8 +42,8 @@ public abstract class Player {
 	playerBoard = new PlayerBoard();
     }
 
-    protected Stat stats;
-    protected PlayerBoard playerBoard;
+    Stat stats;
+    PlayerBoard playerBoard;
 
     public PlayerBoard getPlayerBoard() {
 	return playerBoard;

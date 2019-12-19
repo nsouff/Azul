@@ -52,4 +52,14 @@ public class PatternArea extends PlayerArea implements IndexedArea {
       return res;
     }
 
+    public ColoredTile takeOneTile(int index) {	
+	return tiles.get(index).remove(0);
+    }
+
+    public void throwRow(Trash trash, int index) {
+	for(int i=0; i < tiles.get(index).size(); i++ ) {
+	    Tile t = tiles.get(index).remove(i);
+	    trash.add(t);
+	}	
+    }
 }

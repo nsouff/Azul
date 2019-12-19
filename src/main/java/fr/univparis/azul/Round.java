@@ -44,7 +44,25 @@ public class Round {
     }
 
     public void decorationPhase() {
-	
+	Iterator<Player> it = players.iterator();
+	Player stop = it.next();
+	Player player;
+	do {
+	    player = it.next();
+	    for(int i=0; i < 4; i++) {
+		PatternArea patternArea = player.playerBoard.playerPatternArea;
+		Wall wall = player.playerBoard.playerWall;
+		if ( patternArea.isFull(i) ) {
+		    ColoredTile cTile = patternArea.takeOneTile(i);
+		    wall.add(i, cTile);
+		    patternArea.throwRow(board.trash, i);
+		    
+		    player.stats.addRoundScore(1);
+		    player.stats.addRoundScore( wall.nbAdjacentTile(i, cTile.getColor() ));
+		    player.stats.addRoundScore( -player.playerBoard.playerFloor.size() );
+		}
+	    }	    
+	} while (player != stop);	
     }
 
     private boolean areFactoriesEmpty() {
