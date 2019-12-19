@@ -107,11 +107,8 @@ public class Game { // implements WallObserver
 
 	    round.preparationPhase(board);
 	    round.offerPhase(board);
-	    round.decorationPhase(board);
-	    if ( rowInAnyWall() ) {
-		playing = false;
-	    }
-	    // else {
+	    playing = !round.decorationPhase(board);
+	    // if ( playing ) {
 	    // 	Player first = ;// obtenir le joueur possédant la tile 1er joueur
 	    // 	round.getPlayers().setFirst( first ); // écrire une méthode dans Round pour faire ça
 	    // }
@@ -131,13 +128,5 @@ public class Game { // implements WallObserver
 	for(int i=0; i < nbOfPlayers; i++) {
 	    players.add(new HumanPlayer(String.valueOf(i))); //pour l'instant on initialise que des joueurs humains
 	}	
-    }
-
-    private boolean rowInAnyWall() {
-	for( Player p : players ) {
-	    if( p.getPlayerBoard().getWall().hasFullRow() )
-		return true;
-	}
-	return false;
     }
 }
