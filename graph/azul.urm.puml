@@ -1,0 +1,269 @@
+@startuml
+package fr.univparis.azul {
+  class App {
+    + App()
+    + main(args : String[]) {static}
+  }
+  class Game {
+    - board : GameBoard
+    - config : GameConfiguration
+    - players : ArrayList<Player>
+    + Game(gameConfig : File)
+    + getWinners() : List<Player>
+    - initPlayers(nbOfPlayers : int)
+    + play()
+    - rowInAnyWall() : boolean
+    + shutdown()
+  }
+  class GameBoard {
+    ~ bag : Bag
+    ~ center : CenterArea
+    ~ factories : ArrayList<Factory>
+    ~ trash : Trash
+    + GameBoard(this$0 : int)
+    - fillWithFactory(n : int)
+    - initFactories(nbOfPlayers : int)
+  }
+  -class GameConfiguration {
+    - nbOfPlayers : int
+    + GameConfiguration(f : File)
+  }
+  class HumanPlayer {
+    + HumanPlayer(name : String)
+  }
+  abstract class Player {
+    ~ playerBoard : PlayerBoard
+    ~ stats : Stat
+    + Player(name : String)
+    + getPlayerBoard() : PlayerBoard
+    + getStats() : Stat
+  }
+  class PlayerBoard {
+    ~ playerFloor : Floor
+    ~ playerPatternArea : PatternArea
+    ~ playerWall : Wall
+    + PlayerBoard()
+    + getWall() : Wall
+  }
+  class Stat {
+    - isHuman : boolean
+    - name : String
+    - scorePerRound : LinkedList<Integer>
+    - totalScore : int
+    + Stat()
+    + addRoundScore(score : int)
+    + getTotalScore() : int
+  }
+  interface PlayerBoardObserver {
+    + update() {abstract}
+  }
+  class Round {
+    - board : GameBoard
+    - players : CircularLinkedList<Player>
+    + Round(p : List<Player>, firstPlayer : Player, b : GameBoard)
+    - areFactoriesEmpty() : boolean
+    + decorationPhase()
+    - initPlayers(p : List<Player>, firstPlayer : Player)
+    - isCenterEmpty() : boolean
+    + offerPhase()
+    + preparationPhase()
+  }
+}
+package fr.univparis.azul.area {
+  interface Area {
+    + isEmpty() : boolean {abstract}
+    + size() : int {abstract}
+  }
+  class Bag {
+    + Bag()
+    - addTiles(n : int, c : Colors)
+    + poll() : Tile
+    + refill(trash : Trash)
+  }
+  class CenterArea {
+    + CenterArea()
+    + add(tile : Tile)
+    + isEmpty() : boolean
+    + size() : int
+  }
+  abstract class CommonArea {
+    # tiles : List<Tile>
+    + CommonArea()
+    + getSameColorTile(c : Colors) : List<ColoredTile>
+  }
+  class Factory {
+    - size : int {static}
+    + Factory()
+    + add(tile : Tile)
+    + fill(bag : Bag)
+    + isEmpty() : boolean
+    + size() : int
+  }
+  class Floor {
+    - tiles : LinkedList<Tile>
+    + Floor()
+    + add(tile : Tile)
+    + isEmpty() : boolean
+    + size() : int
+  }
+  interface IndexedArea {
+    + add(int, Tile) {abstract}
+  }
+  abstract class OffSideArea {
+    # tiles : LinkedList<Tile>
+    + OffSideArea()
+    + add(tile : Tile)
+    # getTiles() : LinkedList<Tile>
+    + isEmpty() : boolean
+    + size() : int
+  }
+  class PatternArea {
+    - tiles : ArrayList<ArrayList<ColoredTile>>
+    + PatternArea()
+    + add(index : int, tile : Tile)
+    + getColoredTile(i : int, j : int) : ColoredTile
+    + isEmpty() : boolean
+    + isFull(index : int) : boolean
+    + size() : int
+    + takeOneTile(index : int) : ColoredTile
+    + throwRow(trash : Trash, index : int)
+  }
+  abstract class PlayerArea {
+    + PlayerArea()
+  }
+  class Trash {
+    + Trash()
+  }
+  interface UnindexedArea {
+    + add(Tile) {abstract}
+  }
+  class Wall {
+    - tiles : ColoredTile[][]
+    + Wall()
+    + add(index : int, tile : Tile)
+    - columnPos(row : int, color : Colors) : int
+    + hasFullRow() : boolean
+    + isEmpty() : boolean
+    + nbAdjacentTile(row : int, color : Colors) : int
+    - rowSize(row : int) : int
+    + size() : int
+  }
+}
+package fr.univparis.azul.util {
+  class CircularLinkedList<E> {
+    ~ first : CircularLinkedList<E>.Node<E>
+    + CircularLinkedList<E>()
+    + add(element : E)
+    + getFirst() : E
+    + isEmpty() : boolean
+    + iterator() : Iterator<E>
+    + setFirst(element : E)
+  }
+  -class Node<E> {
+    - element : E
+    - next : CircularLinkedList<E>.Node<E>
+    - Node<E>(e : Object)
+    - Node<E>(e : Object, n : Node<E>)
+    - setNext(n : CircularLinkedList<E>.Node<E>)
+  }
+  class SortedLinkedList<E> {
+    - comp : Comparator<E>
+    - list : LinkedList<E>
+    + SortedLinkedList<E>(c : Comparator<E>)
+    + add(e : E) : boolean
+    + add(index : int, e : E)
+    + addAll(c : Collection<? extends E>) : boolean
+    + addAll(index : int, c : Collection<? extends E>) : boolean
+    + clear()
+    + contains(o : Object) : boolean
+    + containsAll(c : Collection<?>) : boolean
+    + get(index : int) : E
+    + indexOf(o : Object) : int
+    + isEmpty() : boolean
+    + iterator() : Iterator<E>
+    + lastIndexOf(o : Object) : int
+    + listIterator() : ListIterator<E>
+    + listIterator(index : int) : ListIterator<E>
+    + remove(index : int) : E
+    + remove(o : Object) : boolean
+    + removeAll(c : Collection<?>) : boolean
+    + retainAll(c : Collection<?>) : boolean
+    + set(index : int, e : E) : E
+    + size() : int
+    + subList(fromIndex : int, toIndex : int) : List<E>
+    + toArray() : Object[]
+    + toArray(a : T[]) : T[]
+  }
+}
+package fr.univparis.azul.tile {
+  class ColoredTile {
+    - color : Colors
+    + ColoredTile(c : Colors)
+    + getColor() : Colors
+  }
+  enum Colors {
+    + BLACK {static}
+    + BLUE {static}
+    + GREEN {static}
+    + RED {static}
+    + YELLOW {static}
+    + valueOf(name : String) : Colors {static}
+    + values() : Colors[] {static}
+  }
+  class FirstTile {
+    + FirstTile()
+    + effect()
+  }
+  abstract class SpecialTile {
+    + SpecialTile()
+    + effect() {abstract}
+  }
+  abstract class Tile {
+    + Tile()
+  }
+}
+PlayerBoard -->  "-playerPatternArea" PatternArea
+GameBoard -->  "-bag" Bag
+CommonArea -->  "-tiles" Tile
+OffSideArea -->  "-tiles" Tile
+GameBoard -->  "-trash" Trash
+Round -->  "-board" GameBoard
+PlayerBoard -->  "-playerWall" Wall
+Colors ..+ ColoredTile
+ColoredTile -->  "-color" Colors
+Game -->  "-players" Player
+Stat --+ Player
+Player -->  "-stats" Stat
+PlayerBoard -->  "-playerFloor" Floor
+Round -->  "-players" CircularLinkedList
+Game -->  "-config" GameConfiguration
+GameConfiguration --+ Game
+GameBoard -->  "-center" CenterArea
+Node --+ CircularLinkedList
+CircularLinkedList -->  "-first" Node
+Floor -->  "-tiles" Tile
+Game -->  "-board" GameBoard
+GameBoard --+ Game
+PlayerBoard --+ Player
+Player -->  "-playerBoard" PlayerBoard
+GameBoard -->  "-factories" Factory
+Node -->  "-next" Node
+HumanPlayer --|> Player 
+Bag --|> OffSideArea 
+CenterArea --|> CommonArea 
+CommonArea ..|> UnindexedArea 
+Factory --|> CommonArea 
+Floor ..|> UnindexedArea 
+Floor --|> PlayerArea 
+IndexedArea --|> Area 
+OffSideArea ..|> UnindexedArea 
+PatternArea ..|> IndexedArea 
+PatternArea --|> PlayerArea 
+Trash --|> OffSideArea 
+UnindexedArea --|> Area 
+Wall ..|> IndexedArea 
+Wall --|> PlayerArea 
+ColoredTile --|> Tile 
+FirstTile --|> SpecialTile 
+SpecialTile --|> Tile 
+@enduml
