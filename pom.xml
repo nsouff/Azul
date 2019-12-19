@@ -109,7 +109,7 @@
 	<version>1.4.8</version>
 	<configuration>
           <!-- if outputDirectory is not set explicitly it will default to your build dir -->
-          <outputDirectory>${project.basedir}/doc</outputDirectory>
+          <outputDirectory>${project.basedir}/graph</outputDirectory>
           <packages>
             <param>fr.univparis.azul</param>
           </packages>
