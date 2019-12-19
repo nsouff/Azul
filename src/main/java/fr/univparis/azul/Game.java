@@ -91,14 +91,14 @@ public class Game { // implements WallObserver
     
     public void play() {
 	boolean playing = true;
-	Round round = new Round(players, players.get(0), board);	
+	Round round = new Round(players, players.get(0));	
 	do {
 	    board.initFactories(players.size());
 	    board.center = new CenterArea();
 
-	    round.preparationPhase();
-	    round.offerPhase();
-	    round.decorationPhase();
+	    round.preparationPhase(board);
+	    round.offerPhase(board);
+	    round.decorationPhase(board);
 	    if ( rowInAnyWall() ) {
 		playing = false;
 	    }

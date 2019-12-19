@@ -8,11 +8,9 @@ import java.util.*;
 // agit comme un automate
 public class Round {
     private CircularLinkedList<Player> players;
-    private Game.GameBoard board;
     
-    public Round(List<Player> p, Player firstPlayer, Game.GameBoard b) {
+    public Round(List<Player> p, Player firstPlayer) {
 	initPlayers(p, firstPlayer);
-	board = b;
     }
 
     private void initPlayers(List<Player> p, Player firstPlayer) {
@@ -24,26 +22,29 @@ public class Round {
     }
     
     
-    public void preparationPhase() {
+    public void preparationPhase(Game.GameBoard board) {
+	// on place la tuile 1er joueur an centre de la table
 	board.center.add(new FirstTile());
-	
-	if( board.bag.isEmpty() ) {
-	    board.bag.refill(board.trash);
-	}
 
-	for( Factory f : board.factories )
+	// on remplit chaque usine
+	for( Factory f : board.factories ) {
+	    if( board.bag.isEmpty() && board.trash.isEmpty() )
+		break;
+	    else if( board.bag.isEmpty() )
+		board.bag.refill( board.trash );
 	    f.fill(board.bag);
+	}	
     }
 
-    public void offerPhase() {
+    public void offerPhase(Game.GameBoard board) {
 	Iterator<Player> it = players.iterator();
-	while ( !areFactoriesEmpty() && !isCenterEmpty() ) {
+	while ( !areFactoriesEmpty(board) && !isCenterEmpty(board) ) {
  	    Player currentPlayer = it.next();
 	    // currentPlayer.play();	    
 	}
     }
 
-    public void decorationPhase() {
+    public void decorationPhase(Game.GameBoard board) {
 	Iterator<Player> it = players.iterator();
 	Player stop = it.next();
 	Player player;
@@ -65,7 +66,7 @@ public class Round {
 	} while (player != stop);	
     }
 
-    private boolean areFactoriesEmpty() {
+    private boolean areFactoriesEmpty(Game.GameBoard board) {
 	for( Factory f : board.factories ) {
 	    if ( ! f.isEmpty() )
 		return false;
@@ -73,7 +74,7 @@ public class Round {
 	return true;
     }
 
-    private boolean isCenterEmpty() {
+    private boolean isCenterEmpty(Game.GameBoard board) {
 	return board.center.isEmpty();
     }    
 }
