@@ -126,7 +126,7 @@ public class Game { // implements WallObserver
 
     private boolean rowInAnyWall() {
 	for( Player p : players ) {
-	    if( p.getPlayerBoard().getWall().hasRow() )
+	    if( p.getPlayerBoard().getWall().hasFullRow() )
 		return true;
 	}
 	return false;
