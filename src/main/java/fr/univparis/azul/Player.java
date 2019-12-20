@@ -1,6 +1,7 @@
 package fr.univparis.azul;
 
 import fr.univparis.azul.area.*;
+import fr.univparis.azul.tile.*;
 import java.util.*;
 
 public abstract class Player {
@@ -40,7 +41,7 @@ public abstract class Player {
     stats = new Stat();
     stats.name = name;
     playerBoard = new PlayerBoard();
-    gameBoard = g; 
+    gameBoard = g;
   }
 
   Stat stats;
@@ -53,6 +54,23 @@ public abstract class Player {
 
   public Stat getStats() {
     return stats;
+  }
+
+  public void moveFromFactoryToPattern(ColoredTile.Colors c, Factory f, int index) {
+    if (! playerBoard.playerPatternArea.isEmpty(index) && playerBoard.playerPatternArea.getColoredTile(index, 0).getColor() != c)
+      throw new IllegalArgumentException("Tiles must be in the same color for each rows of the PatternArea");
+    List<Tile> tiles = f.getTiles();
+    for (Tile t : tiles) {
+      if (((ColoredTile)t).getColor() == c) {
+         if (playerBoard.playerPatternArea.isFull(index)) {
+           if (playerBoard.playerFloor.isFull()) gameBoard.trash.add(t);
+           else playerBoard.playerFloor.add(t);
+         }
+         else playerBoard.playerPatternArea.add(index, t);
+      }
+      else gameBoard.center.add(t);
+    }
+    f.emptyIt();
   }
 
 }

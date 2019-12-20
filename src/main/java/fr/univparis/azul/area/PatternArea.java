@@ -37,6 +37,8 @@ public class PatternArea extends PlayerArea implements IndexedArea {
       return (tiles.get(index).size() == index + 1);
     }
 
+    public boolean isEmpty(int index) {return tiles.get(index).isEmpty();}
+
 
     @Override
     public int size() {
@@ -52,7 +54,7 @@ public class PatternArea extends PlayerArea implements IndexedArea {
       return res;
     }
 
-    public ColoredTile takeOneTile(int index) {	
+    public ColoredTile takeOneTile(int index) {
 	return tiles.get(index).remove(0);
     }
 
@@ -60,6 +62,6 @@ public class PatternArea extends PlayerArea implements IndexedArea {
 	for(int i=0; i < tiles.get(index).size(); i++ ) {
 	    Tile t = tiles.get(index).remove(i);
 	    trash.add(t);
-	}	
+	}
     }
 }

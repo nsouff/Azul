@@ -21,5 +21,10 @@ public class Floor extends PlayerArea implements UnindexedArea {
   @Override
   public void add(Tile tile) {tiles.add(tile);}
 
+  /* FIXME: maxe size of floor should be configurable */
+  public boolean isFull() {
+    return tiles.size() == 7;
+  }
+
 
 }

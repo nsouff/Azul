@@ -5,7 +5,7 @@ import fr.univparis.azul.tile.*;
 import java.util.*;
 
 public class Factory extends CommonArea {
-
+    /* FIXME: Maybe it should be implements Iterable */
     private static final int size = 4;
     {
       tiles = new ArrayList<Tile>(size);
@@ -27,6 +27,8 @@ public class Factory extends CommonArea {
       if (size() >= size) throw new FullFactoryException();
       tiles.add((ColoredTile) tile);
     }
+
+    public List<Tile> getTiles() {return tiles;}
 
     public void fill(Bag bag) {
       if (!isEmpty()) throw new NotEmptyFactoryException();
@@ -51,5 +53,7 @@ public class Factory extends CommonArea {
       }
       tiles = new ArrayList<Tile>(size);
     }
+
+    public void emptyIt() {tiles = new ArrayList<Tile>(size);}
 
 }
