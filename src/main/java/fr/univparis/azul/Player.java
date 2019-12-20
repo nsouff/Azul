@@ -73,4 +73,27 @@ public abstract class Player {
     f.emptyIt();
   }
 
+  public void moveFromCenterAreatoPattern(ColoredTile.Colors c, int index) {
+    if (! playerBoard.playerPatternArea.isEmpty(index) && playerBoard.playerPatternArea.getColoredTile(index, 0).getColor() != c) {
+      throw new IllegalArgumentException("Tiles must be in the same color for each rows of the PatternArea");
+    }
+
+    List<Tile> tiles = gameBoard.center.getTiles();
+    for (Tile t : tiles) {
+      if (t instanceof ColoredTile) {
+        if (((ColoredTile)t).getColor() == c ) {
+          tiles.remove(t);
+          ColoredTile ct = (ColoredTile) t;
+          if (ct.getColor() == c) {
+            if (playerBoard.playerFloor.isFull()) gameBoard.trash.add(t);
+            else playerBoard.playerFloor.add(t);
+          }
+          else playerBoard.playerFloor.add(t);
+        }
+        else gameBoard.center.add(t);
+      }
+      else playerBoard.playerFloor.add(t);
+    }
+  }
+
 }

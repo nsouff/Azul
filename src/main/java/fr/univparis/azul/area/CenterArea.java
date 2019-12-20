@@ -38,5 +38,9 @@ public class CenterArea extends CommonArea {
     tiles.add(tile);
   }
 
+  public List<Tile> getTiles() {
+    return tiles;
+  }
+
 
 }
