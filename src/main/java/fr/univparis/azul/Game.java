@@ -29,7 +29,7 @@ public class Game { // implements WallObserver
 	    initFactories(nbOfPlayers);
 	    center = new CenterArea();
 	}
-	
+
 	private void initFactories(int nbOfPlayers) {
 	    int n = 0;
 	    switch(nbOfPlayers) {
@@ -45,7 +45,7 @@ public class Game { // implements WallObserver
 	    default:
 		throw new RuntimeException("Invalid number of players");
 	    }
-	    
+
 	    factories = new ArrayList<Factory>(n);
 
 	    fillWithFactory(n);
@@ -57,7 +57,7 @@ public class Game { // implements WallObserver
 	    }
 	}
 
-	
+
         public boolean areFactoriesEmpty() {
 	    for( Factory f : factories ) {
 		if ( ! f.isEmpty() )
@@ -76,17 +76,17 @@ public class Game { // implements WallObserver
 
 	initPlayers(config.nbOfPlayers);
 
-	board = new GameBoard(config.nbOfPlayers);	
+	board = new GameBoard(config.nbOfPlayers);
     }
 
     public List<Player> getWinners() {
 	List<Player> winners = new LinkedList<Player>();
 	winners.add( players.get(0) );
-	
+
 	int max = winners.get(0).getStats().getTotalScore();
-	
+
 	for( Player p : players ) {
-	    int pScore = p.getStats().getTotalScore();	   
+	    int pScore = p.getStats().getTotalScore();
 	    if( max < pScore ) {
 		winners.clear();
 		winners.add(p);
@@ -97,10 +97,10 @@ public class Game { // implements WallObserver
 	}
 	return winners;
     }
-    
+
     public void play() {
 	boolean playing = true;
-	Round round = new Round(players, players.get(0));	
+	Round round = new Round(players, players.get(0));
 	do {
 	    board.initFactories(players.size());
 	    board.center = new CenterArea();
@@ -126,7 +126,7 @@ public class Game { // implements WallObserver
 	players = new ArrayList<Player>(nbOfPlayers);
 
 	for(int i=0; i < nbOfPlayers; i++) {
-	    players.add(new HumanPlayer(String.valueOf(i))); //pour l'instant on initialise que des joueurs humains
-	}	
+	    players.add(new HumanPlayer(String.valueOf(i), board)); //pour l'instant on initialise que des joueurs humains
+	}
     }
 }
