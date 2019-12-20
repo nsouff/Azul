@@ -60,6 +60,19 @@ public class PatternAreaTest {
     assertFalse(p.isEmpty());
   }
 
+  @Test
+  public void isFullTest() {
+    ColoredTile.Colors bl = ColoredTile.Colors.BLUE;
+    PatternArea p = new PatternArea();
+    p.add(0, new ColoredTile(bl));
+    p.add(2, new ColoredTile(bl));
+    p.add(2, new ColoredTile(bl));
+    assertFalse(p.isFull(2));
+    assertTrue(p.isFull(0));
+    p.add(2, new ColoredTile(bl));
+    assertTrue(p.isFull(2));
+  }
+
 
 
 }
