@@ -7,126 +7,130 @@ import org.apache.commons.io.FileUtils;
 import org.json.*;
 
 public class Game { // implements WallObserver
-    private class GameConfiguration {
-	private int nbOfPlayers;
+  private class GameConfiguration {
+    private int nbOfPlayers;
 
-	public GameConfiguration(File f) throws Exception {
-	    JSONObject json = new JSONObject (FileUtils.readFileToString(f,"utf-8"));
+    public GameConfiguration(File f) throws Exception {
+      JSONObject json = new JSONObject (FileUtils.readFileToString(f,"utf-8"));
 
-	    nbOfPlayers = json.getInt("nb_of_players");
-	}
+      nbOfPlayers = json.getInt("nb_of_players");
+    }
+  }
+
+  public class GameBoard {
+    Bag bag;
+    Trash trash;
+    ArrayList<Factory> factories;
+    CenterArea center;
+
+    public GameBoard(int nbOfPlayers) {
+      bag = new Bag();
+      trash = new Trash();
+      initFactories(nbOfPlayers);
+      center = new CenterArea();
     }
 
-    public class GameBoard {
-	Bag bag;
-	Trash trash;
-	ArrayList<Factory> factories;
-	CenterArea center;
+    private void initFactories(int nbOfPlayers) {
+      int n = 0;
+      switch(nbOfPlayers) {
+        case 2:
+        n = 5;
+        break;
+        case 3:
+        n = 7;
+        break;
+        case 4:
+        n = 9;
+        break;
+        default:
+        throw new RuntimeException("Invalid number of players");
+      }
 
-	public GameBoard(int nbOfPlayers) {
-	    bag = new Bag();
-	    trash = new Trash();
-	    initFactories(nbOfPlayers);
-	    center = new CenterArea();
-	}
+      factories = new ArrayList<Factory>(n);
 
-	private void initFactories(int nbOfPlayers) {
-	    int n = 0;
-	    switch(nbOfPlayers) {
-	    case 2:
-		n = 5;
-		break;
-	    case 3:
-		n = 7;
-		break;
-	    case 4:
-		n = 9;
-		break;
-	    default:
-		throw new RuntimeException("Invalid number of players");
-	    }
-
-	    factories = new ArrayList<Factory>(n);
-
-	    fillWithFactory(n);
-	}
-
-	private void fillWithFactory(int n) {
-	    for(int i=0; i < n; i++) {
-		factories.add(new Factory());
-	    }
-	}
-
-
-        public boolean areFactoriesEmpty() {
-	    for( Factory f : factories ) {
-		if ( ! f.isEmpty() )
-		    return false;
-	    }
-	    return true;
-	}
+      fillWithFactory(n);
     }
 
-    private GameConfiguration config;
-    private ArrayList<Player> players;
-    private GameBoard board;
-
-    public Game(File gameConfig) throws Exception {
-	config = new GameConfiguration(gameConfig);
-
-	initPlayers(config.nbOfPlayers);
-
-	board = new GameBoard(config.nbOfPlayers);
+    private void fillWithFactory(int n) {
+      for(int i=0; i < n; i++) {
+        factories.add(new Factory());
+      }
     }
 
-    public List<Player> getWinners() {
-	List<Player> winners = new LinkedList<Player>();
-	winners.add( players.get(0) );
 
-	int max = winners.get(0).getStats().getTotalScore();
-
-	for( Player p : players ) {
-	    int pScore = p.getStats().getTotalScore();
-	    if( max < pScore ) {
-		winners.clear();
-		winners.add(p);
-		max = pScore;
-	    } else if ( max == pScore ) {
-		winners.add(p);
-	    }
-	}
-	return winners;
+    public boolean areFactoriesEmpty() {
+      for( Factory f : factories ) {
+        if ( ! f.isEmpty() )
+        return false;
+      }
+      return true;
     }
+  }
 
-    public void play() {
-	boolean playing = true;
-	Round round = new Round(players, players.get(0));
-	do {
-	    board.initFactories(players.size());
-	    board.center = new CenterArea();
+  private GameConfiguration config;
+  private ArrayList<Player> players;
+  private GameBoard board;
 
-	    round.preparationPhase(board);
-	    round.offerPhase(board);
-	    playing = !round.decorationPhase(board);
-	    // if ( playing ) {
-	    // 	Player first = ;// obtenir le joueur possédant la tile 1er joueur
-	    // 	round.getPlayers().setFirst( first ); // écrire une méthode dans Round pour faire ça
-	    // }
-	} while ( playing );
+  public Game(File gameConfig) throws Exception {
+    config = new GameConfiguration(gameConfig);
+
+    initPlayers(config.nbOfPlayers);
+
+    board = new GameBoard(config.nbOfPlayers);
+  }
+
+  public int getNbPlayers() {
+    return config.nbOfPlayers;
+  }
+
+  public List<Player> getWinners() {
+    List<Player> winners = new LinkedList<Player>();
+    winners.add( players.get(0) );
+
+    int max = winners.get(0).getStats().getTotalScore();
+
+    for( Player p : players ) {
+      int pScore = p.getStats().getTotalScore();
+      if( max < pScore ) {
+        winners.clear();
+        winners.add(p);
+        max = pScore;
+      } else if ( max == pScore ) {
+        winners.add(p);
+      }
     }
+    return winners;
+  }
 
-    // peut-être pas nécessaire
-    public void shutdown() {
+  public void play() {
+    boolean playing = true;
+    Round round = new Round(players, players.get(0));
+    do {
+      board.initFactories(players.size());
+      board.center = new CenterArea();
+
+      round.preparationPhase(board);
+      round.offerPhase(board);
+      playing = !round.decorationPhase(board);
+      // if ( playing ) {
+      // 	Player first = ;// obtenir le joueur possédant la tile 1er joueur
+      // 	round.getPlayers().setFirst( first ); // écrire une méthode dans Round pour faire ça
+      // }
+    } while ( playing );
+  }
+
+  // peut-être pas nécessaire
+  public void shutdown() {
+  }
+
+  private void initPlayers(int nbOfPlayers) {
+    if( nbOfPlayers <= 1 || nbOfPlayers > 4 )
+    throw new IllegalArgumentException("Invalid number of players");
+
+    players = new ArrayList<Player>(nbOfPlayers);
+
+    for(int i=0; i < nbOfPlayers; i++) {
+      players.add(new HumanPlayer(String.valueOf(i), board)); //pour l'instant on initialise que des joueurs humains
     }
-
-    private void initPlayers(int nbOfPlayers) {
-	if( nbOfPlayers <= 1 || nbOfPlayers > 4 )
-	    throw new IllegalArgumentException("Invalid number of players");
-
-	players = new ArrayList<Player>(nbOfPlayers);
-
-	for(int i=0; i < nbOfPlayers; i++) {
-	    players.add(new HumanPlayer(String.valueOf(i), board)); //pour l'instant on initialise que des joueurs humains
-	}
-    }
+  }
 }
