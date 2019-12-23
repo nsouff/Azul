@@ -97,4 +97,9 @@ public abstract class Player {
     }
   }
 
+  public void moveSpecialTileToFloor(SpecialTile s) {
+    gameBoard.center.getTiles().remove(s);
+    playerBoard.playerFloor.add(s);
+  }
+
 }
