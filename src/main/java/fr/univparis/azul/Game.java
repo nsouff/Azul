@@ -74,9 +74,9 @@ public class Game { // implements WallObserver
   public Game(File gameConfig) throws Exception {
     config = new GameConfiguration(gameConfig);
 
-    initPlayers(config.nbOfPlayers);
-
     board = new GameBoard(config.nbOfPlayers);
+
+    initPlayers(config.nbOfPlayers);
   }
 
   public int getNbPlayers() {
@@ -132,5 +132,15 @@ public class Game { // implements WallObserver
     for(int i=0; i < nbOfPlayers; i++) {
       players.add(new HumanPlayer(String.valueOf(i), board)); //pour l'instant on initialise que des joueurs humains
     }
+  }
+
+  Player getPlayer(String name) {
+    for (Player p : players)
+      if (p.getStats().getName().equals(name)) return p;
+    return null;
+  }
+
+  GameBoard getBoard() {
+    return board;
   }
 }

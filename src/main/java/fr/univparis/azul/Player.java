@@ -11,6 +11,7 @@ public abstract class Player {
     private String name;
     private boolean isHuman;
 
+    public String getName() {return name;}
     public int getTotalScore() {
       return totalScore;
     }
