@@ -27,7 +27,7 @@ public class PlayerTest {
     p.playerBoard.playerFloor.add(new ColoredTile(ColoredTile.Colors.BLUE));
     p.playerBoard.playerFloor.add(new ColoredTile(ColoredTile.Colors.BLUE));
     p.playerBoard.playerFloor.add(new ColoredTile(ColoredTile.Colors.BLUE));
-    
+
     for (int i = 0; i < 4; i++) f.add(new ColoredTile(ColoredTile.Colors.BLUE));
 
     p.moveFromFactoryToPattern(ColoredTile.Colors.BLUE, f, 1);
@@ -38,4 +38,21 @@ public class PlayerTest {
 
   }
 
+
+  @Test
+  public void moveFromCenterAreatoPattern() throws Exception {
+    Game g = new Game(new File(this.getClass().getResource("/config.json").getFile()));
+    Player p = g.getPlayer("1");
+    CenterArea c = g.getBoard().center;
+    for (int i = 0; i < 6; i++) c.add(new ColoredTile(ColoredTile.Colors.GREEN));
+    System.out.println(c.size());
+    c.add(new FirstTile());
+    c.add(new ColoredTile(ColoredTile.Colors.YELLOW));
+    System.out.println(c.size());
+    try {p.moveFromCenterAreatoPattern(ColoredTile.Colors.GREEN, 4);} catch (Exception e) {e.printStackTrace();}
+    assertEquals(2, p.playerBoard.playerFloor.size());
+    assertEquals(1, c.size());
+    assertEquals(5, p.playerBoard.playerPatternArea.size());
+    assertEquals(ColoredTile.Colors.YELLOW, ((ColoredTile)c.getTiles().get(0)).getColor());
+  }
 }
