@@ -77,7 +77,11 @@ public class SortedLinkedList<E> implements List<E> {
 
   public ListIterator<E> listIterator(int index) {throw new UnsupportedOperationException();}
 
-  public boolean removeAll(Collection<?> c) {throw new UnsupportedOperationException();}
+  public boolean removeAll(Collection<?> c) {
+    boolean b = true;
+    for (Object o : c) b &= list.remove(o);
+    return b;
+  }
 
   public boolean retainAll(Collection<?> c) {throw new UnsupportedOperationException();}
 
