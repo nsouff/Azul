@@ -101,9 +101,38 @@ public abstract class Player {
     tiles.removeAll(toDelete);
   }
 
-  public void moveSpecialTileToFloor(SpecialTile s) {
+  public void moveSpecialTileFromCenterToFloor(SpecialTile s) {
     gameBoard.center.getTiles().remove(s);
     playerBoard.playerFloor.add(s);
+  }
+
+  public void moveFromFactoryToFloor(ColoredTile.Colors c, Factory f) {
+    for (Tile t : f.getTiles()) {
+      if (((ColoredTile)t).getColor() == c) {
+        if (playerBoard.playerFloor.isFull()) gameBoard.trash.add(t);
+        else playerBoard.playerFloor.add(t);
+      }
+      else gameBoard.center.add(t);
+    }
+    f.emptyIt();
+  }
+
+  public void moveFromCenterToFloor(ColoredTile.Colors c) {
+    List<Tile> toDelete = new ArrayList<Tile>();
+    for (Tile t : gameBoard.center.getTiles()) {
+      if (t instanceof ColoredTile) {
+        if (((ColoredTile)t).getColor() == c) {
+          toDelete.add(t);
+          if (! playerBoard.playerFloor.isFull()) playerBoard.playerFloor.add(t);
+          else gameBoard.trash.add(t);
+        }
+      }
+      else {
+        playerBoard.playerFloor.add(t);
+        toDelete.add(t);
+      }
+    }
+    gameBoard.center.getTiles().removeAll(toDelete);
   }
 
 }
