@@ -80,21 +80,25 @@ public abstract class Player {
     }
 
     List<Tile> tiles = gameBoard.center.getTiles();
+    ArrayList<Tile> toDelete = new ArrayList<Tile>();
     for (Tile t : tiles) {
       if (t instanceof ColoredTile) {
-        if (((ColoredTile)t).getColor() == c ) {
-          tiles.remove(t);
-          ColoredTile ct = (ColoredTile) t;
-          if (ct.getColor() == c) {
-            if (playerBoard.playerFloor.isFull()) gameBoard.trash.add(t);
-            else playerBoard.playerFloor.add(t);
-          }
+        ColoredTile ct = (ColoredTile) t;
+        if (ct.getColor() == c) {
+          System.out.println(1);
+          toDelete.add(t);
+          if (! playerBoard.playerPatternArea.isFull(index)) playerBoard.playerPatternArea.add(index, t);
+          else if (playerBoard.playerFloor.isFull()) gameBoard.trash.add(t);
           else playerBoard.playerFloor.add(t);
         }
-        else gameBoard.center.add(t);
       }
-      else playerBoard.playerFloor.add(t);
+      else {
+        toDelete.add(t);
+        playerBoard.playerFloor.add(t);
+      }
     }
+    System.out.println("size: " + toDelete.size());
+    tiles.removeAll(toDelete);
   }
 
   public void moveSpecialTileToFloor(SpecialTile s) {
