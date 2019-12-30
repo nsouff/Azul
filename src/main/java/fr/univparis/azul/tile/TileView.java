@@ -127,8 +127,7 @@ public class TileView extends JLabel implements Transferable {
 	
 	return false;
     }
-
-
+   
 
     public static JLabel createTilePlaceholder() {
 	JLabel placeholder = new JLabel();
@@ -146,13 +145,5 @@ public class TileView extends JLabel implements Transferable {
 	placeholder.setOpaque( true );
 	
 	return placeholder;
-    }
-    
-    public static JLabel createTilePlaceholder(URL bgPath) {
-	JLabel placeholder = new JLabel();
-	placeholder.setIcon(new ImageIcon(bgPath));
-	placeholder.setPreferredSize(new Dimension(TILE_WIDTH, TILE_HEIGHT));
-
-	return placeholder;
-    }
+    }    
 }

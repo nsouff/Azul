@@ -1,11 +1,12 @@
 package fr.univparis.azul;
 
-import fr.univparis.azul.tile.TileView;
+import fr.univparis.azul.tile.*;
+import fr.univparis.azul.area.Factory;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -22,7 +23,15 @@ public class GameView extends JFrame {
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	setFullScreenMode(this);
-        
+    }
+
+    public void drawGameBoard() {
+	JPanel gameBoard = createGameBoard();
+	
+	setContentPane( gameBoard );
+    }
+    
+    private JPanel createGameBoard() {
 	JPanel rootPane = new TileBackgroundPanel("/assets/bg.png");
         rootPane.setLayout(new GridBagLayout());
 
@@ -32,16 +41,16 @@ public class GameView extends JFrame {
 	
 	c.gridx = 0;
 	c.gridy = 0;
-	rootPane.add( createFactoriesArea(9), c );
+	rootPane.add( createFactoriesArea(gameModel.getBoard().factories), c );
 
 	c.gridy = 1;
 	c.weighty = 1.0; //request any extra vertical space
 	String[] players = {"Romain","CPU1","BOB","CPU2"};
 	rootPane.add( createBottomArea(players), c );
-	
-	setContentPane( rootPane );
-    }
 
+	return rootPane;
+    }
+    
 
     private static void setFullScreenMode(JFrame window) {
 	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -49,7 +58,7 @@ public class GameView extends JFrame {
 	device.setFullScreenWindow(window);
     }
 
-    private static JPanel createFactoriesArea(int nbFactory) {
+    private static JPanel createFactoriesArea(ArrayList<Factory> factories) {
 	JPanel factoriesArea = new JPanel();
 	factoriesArea.setLayout(new GridBagLayout());
 	factoriesArea.setOpaque(false);
@@ -60,33 +69,51 @@ public class GameView extends JFrame {
 	c.gridy = 0;
 	c.insets = new Insets(10,0,0,0);
 
-	for(int i=0; i < nbFactory; i++) {
+	for(int i=0; i < factories.size(); i++) {
 	    c.gridx = i;
-	    factoriesArea.add( createFactory(),c );
-	    if( i < nbFactory - 1 )
+	    factoriesArea.add( createFactory(factories.get(i)),c );
+	    if( i < factories.size() )
 	     	factoriesArea.add( Box.createHorizontalGlue(),c );
 	}
 
 	return factoriesArea;
     }
 
-    private static JPanel createFactory() {
-	JPanel factory = new FitBackgroundPanel("/assets/bg_factory.png");
-	factory.setLayout(new GridBagLayout() );
-	factory.setOpaque(false);
+    private static TileView createTileView(ColoredTile.Colors color) {
+
+	switch ( color ) {
+	case BLUE:
+	    return new TileView(GameView.class.getResource("/assets/blue.png"));
+	case RED:
+	    return new TileView(GameView.class.getResource("/assets/red.png"));
+	case GREEN:
+	    return new TileView(GameView.class.getResource("/assets/green.png"));
+	case BLACK:
+	    return new TileView(GameView.class.getResource("/assets/black.png"));
+	case YELLOW:
+	    return new TileView(GameView.class.getResource("/assets/yellow.png"));	    
+	}
+	return null;
+    }
+    
+    private static JPanel createFactory(Factory factory) {
+	JPanel factoryView = new FitBackgroundPanel("/assets/bg_factory.png");
+	factoryView.setLayout(new GridBagLayout() );
+	factoryView.setOpaque(false);
 	
 	GridBagConstraints c = new GridBagConstraints();
 	c.insets = new Insets(10,10,10,10); //marge
 
+	java.util.List<Tile> tiles = factory.getTiles();
 	for(int y=0; y < 2; y++) {
 	    c.gridy = y;
 	    for(int x=0; x<2; x++) {
 		c.gridx = x;
-		factory.add( TileView.createTilePlaceholder(),c );
+		factoryView.add( createTileView( ((ColoredTile)tiles.get(y+x)).getColor() ),c );
 	    }
 	}
 	
-	return factory;
+	return factoryView;
     }
 
     private static JPanel createBottomArea( String[] playersName ) {

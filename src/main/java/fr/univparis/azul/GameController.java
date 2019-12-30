@@ -16,7 +16,15 @@ public class GameController {
 	gameView.setVisible(true);
     }
 
-    public void play() {
+    public void play() {	
+	gameModel.preparationPhase(); // update
+	render();
+	
+    }
 
+    public void render() {
+	gameView.drawGameBoard();
+	gameView.revalidate();
+	//gameView.repaint();
     }
 }
