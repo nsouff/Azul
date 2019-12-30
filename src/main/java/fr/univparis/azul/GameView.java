@@ -1,13 +1,11 @@
 package fr.univparis.azul;
 
-import fr.univparis.azul.tile.*;
+import fr.univparis.azul.area.CenterArea;
 import fr.univparis.azul.area.Factory;
+import fr.univparis.azul.tile.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
 import java.net.URL;
 import java.util.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -105,11 +103,15 @@ public class GameView extends JFrame {
 	c.insets = new Insets(10,10,10,10); //marge
 
 	java.util.List<Tile> tiles = factory.getTiles();
+	boolean isFactoryEmpty = factory.isEmpty();
 	for(int y=0; y < 2; y++) {
 	    c.gridy = y;
 	    for(int x=0; x<2; x++) {
 		c.gridx = x;
-		factoryView.add( createTileView( ((ColoredTile)tiles.get(y+x)).getColor() ),c );
+		if( isFactoryEmpty )
+		    factoryView.add( TileView.createTilePlaceholder(),c );
+		else
+		    factoryView.add( createTileView( ((ColoredTile)tiles.get(y+x)).getColor() ),c );
 	    }
 	}
 	
@@ -248,5 +250,6 @@ public class GameView extends JFrame {
 	
 	return wall;
     }
+
 
 }
