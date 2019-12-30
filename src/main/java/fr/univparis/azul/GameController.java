@@ -15,4 +15,8 @@ public class GameController {
 
 	gameView.setVisible(true);
     }
+
+    public void play() {
+
+    }
 }

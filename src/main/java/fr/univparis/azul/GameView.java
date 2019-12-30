@@ -82,7 +82,7 @@ public class GameView extends JFrame {
 	    c.gridy = y;
 	    for(int x=0; x<2; x++) {
 		c.gridx = x;
-		factory.add( TileView.createTilePlaceholder(Color.BLACK),c );
+		factory.add( TileView.createTilePlaceholder(),c );
 	    }
 	}
 	
@@ -141,8 +141,13 @@ public class GameView extends JFrame {
     }
 
     private static JPanel createPlayerBoard(String name) {
-	JPanel playerBoard = new JPanel(new GridBagLayout());
-	playerBoard.setBorder(new TitledBorder(name));
+	JPanel playerBoard = new TileBackgroundPanel("/assets/bg_playerboard.png");
+	playerBoard.setLayout( new GridBagLayout() );
+
+	TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), name, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.BELOW_TOP);
+	border.setTitleColor( Color.WHITE );
+	playerBoard.setBorder( border );
+
 	
 	GridBagConstraints c = new GridBagConstraints();
 	c.weightx = 1.0;
@@ -167,7 +172,7 @@ public class GameView extends JFrame {
 
     private static JPanel createPatternArea() {
 	JPanel patternArea = new JPanel(new GridBagLayout());
-	patternArea.setBackground(Color.GREEN);
+	patternArea.setOpaque(false);
 
 	GridBagConstraints c = new GridBagConstraints();
 	c.anchor = GridBagConstraints.LINE_END;
@@ -178,7 +183,7 @@ public class GameView extends JFrame {
 	    c.gridwidth = y+1;
 
 	    JPanel patternLine = new JPanel();
-	    patternLine.setBackground(Color.YELLOW);
+	    patternLine.setBackground(new Color(224, 211, 175));
 	    
 	    for(int n=0; n < y+1; n++)
 		patternLine.add( TileView.createTilePlaceholder(Color.BLACK));
@@ -191,7 +196,7 @@ public class GameView extends JFrame {
     
     private static JPanel createFloor() {
 	JPanel floor = new JPanel();
-	floor.setBackground(Color.RED);
+	floor.setBackground(new Color(224, 211, 175));
 
 	for(int i=0; i < 7; i++) {
 	    floor.add( TileView.createTilePlaceholder(Color.BLACK));
@@ -201,7 +206,7 @@ public class GameView extends JFrame {
 
     private static JPanel createWall() {
 	JPanel wall = new JPanel(new GridBagLayout());
-	wall.setBackground(Color.BLUE);
+	wall.setBackground(new Color(224, 211, 175));
 
 	GridBagConstraints c = new GridBagConstraints();
 	c.insets = new Insets(5,5,5,5);

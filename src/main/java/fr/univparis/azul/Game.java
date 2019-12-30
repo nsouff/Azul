@@ -6,7 +6,7 @@ import java.util.*;
 import org.apache.commons.io.FileUtils;
 import org.json.*;
 
-public class Game { // implements WallObserver
+public class Game {
   private class GameConfiguration {
     private int nbOfPlayers;
 
