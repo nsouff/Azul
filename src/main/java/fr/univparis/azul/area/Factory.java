@@ -7,8 +7,8 @@ import java.util.*;
 public class Factory extends CommonArea {
     /* FIXME: Maybe it should be implements Iterable */
     private static final int size = 4;
-    {
-      tiles = new ArrayList<Tile>(size);
+    public Factory() {
+	tiles = new ArrayList<Tile>(size);
     }
 
     protected static class FullFactoryException extends IllegalStateException {}
@@ -30,6 +30,7 @@ public class Factory extends CommonArea {
 
     public List<Tile> getTiles() {return tiles;}
 
+    // FIXME : change name to fillFrom or move the method to Bag class
     public void fill(Bag bag) {
       if (!isEmpty()) throw new NotEmptyFactoryException();
       for (int i = 0; i < size; i++) add(bag.poll());
@@ -55,5 +56,4 @@ public class Factory extends CommonArea {
     }
 
     public void emptyIt() {tiles = new ArrayList<Tile>(size);}
-
 }
