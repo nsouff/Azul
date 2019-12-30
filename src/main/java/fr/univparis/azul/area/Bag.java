@@ -30,4 +30,7 @@ public class Bag extends OffSideArea {
     return tiles.poll();
   }
 
+    public void shuffle() {
+	Collections.shuffle( tiles );
+    }
 }
