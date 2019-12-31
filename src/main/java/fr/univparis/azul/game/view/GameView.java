@@ -20,11 +20,13 @@ import javax.swing.border.TitledBorder;
 import fr.univparis.azul.game.view.util.FitBackgroundPanel;
 import fr.univparis.azul.game.view.util.TileBackgroundPanel;
 import fr.univparis.azul.model.Game;
+import fr.univparis.azul.model.Player;
 import fr.univparis.azul.model.area.Factory;
 import fr.univparis.azul.model.tile.ColoredTile;
 import fr.univparis.azul.model.tile.Tile;
 import fr.univparis.azul.tile.view.TileView;
 
+//FIXME : Refactor this class
 public class GameView extends JFrame {
     
     
@@ -59,8 +61,7 @@ public class GameView extends JFrame {
 
 	c.gridy = 1;
 	c.weighty = 1.0; //request any extra vertical space
-	String[] players = {"Romain","CPU1","BOB","CPU2"};
-	rootPane.add( createBottomArea(players), c );
+	rootPane.add( createBottomArea(gameModel.getPlayers()), c );
 
 	return rootPane;
     }
@@ -134,10 +135,7 @@ public class GameView extends JFrame {
 	return factoryView;
     }
 
-    private static JPanel createBottomArea( String[] playersName ) {
-	if( playersName.length < 2 || playersName.length > 4 )
-	    throw new IllegalArgumentException("There must be 2 to 4 players.");
-
+    private static JPanel createBottomArea( List<Player> players ) {
 	JPanel bottomArea = new JPanel(new GridBagLayout());
 	bottomArea.setOpaque(false);
 	
@@ -145,7 +143,7 @@ public class GameView extends JFrame {
 	c.weighty = 1.0;
 	c.fill = GridBagConstraints.BOTH;
 	
-	String[] leftPlayers = Arrays.copyOfRange( playersName, 0, playersName.length/2);
+        List<Player> leftPlayers = players.subList(0, players.size()/2 );
 	c.gridy = 0;
 	c.gridx = 0;
 	bottomArea.add( createPlayersArea(leftPlayers),c );
@@ -157,7 +155,7 @@ public class GameView extends JFrame {
 	centerArea.setBackground( new Color(0,0,0,50));
 	bottomArea.add( centerArea,c );
 	
-	String[] rightPlayers = Arrays.copyOfRange( playersName, playersName.length/2, playersName.length);
+        List<Player> rightPlayers = players.subList(players.size()/2, players.size() );
 	c.gridx = 2;
 	c.weightx = 0.0;
 	c.insets = new Insets(0,0,0,0);
@@ -166,9 +164,7 @@ public class GameView extends JFrame {
 	return bottomArea;
     }
 
-    private static JPanel createPlayersArea(String[] names) {
-	if( names.length != 1 && names.length != 2 )
-	    throw new IllegalArgumentException();
+    private static JPanel createPlayersArea(List<Player> players) {
 	JPanel playersArea = new JPanel(new GridBagLayout());
         playersArea.setOpaque(false);
 	
@@ -177,18 +173,19 @@ public class GameView extends JFrame {
 	c.weightx = 1.0;
 	c.gridx = 0;
 	
-	for(int y=0; y < names.length; y++) {
+	for(int y=0; y < players.size(); y++) {
 	    c.gridy = y;
-	    playersArea.add( createPlayerBoard(names[y]),c );
+	    playersArea.add( createPlayerBoard(players.get(y)),c );
 	}
 	
 	return playersArea;
     }
 
-    private static JPanel createPlayerBoard(String name) {
+    private static JPanel createPlayerBoard(Player player) {
 	JPanel playerBoard = new TileBackgroundPanel("/assets/bg_playerboard.png");
 	playerBoard.setLayout( new GridBagLayout() );
 
+	String name = player.getStats().getName();
 	TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), name, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.BELOW_TOP);
 	border.setTitleColor( Color.WHITE );
 	playerBoard.setBorder( border );
@@ -214,7 +211,7 @@ public class GameView extends JFrame {
 	
 	return playerBoard;
     }
-
+    
     private static JPanel createPatternArea() {
 	JPanel patternArea = new JPanel(new GridBagLayout());
 	patternArea.setOpaque(false);

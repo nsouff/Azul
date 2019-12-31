@@ -171,4 +171,8 @@ public class Game {
     public GameBoard getBoard() {
 	return board;
     }
+
+    public ArrayList<Player> getPlayers() {
+	return players;
+    }
 }
