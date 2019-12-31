@@ -21,8 +21,10 @@ import fr.univparis.azul.game.view.util.FitBackgroundPanel;
 import fr.univparis.azul.game.view.util.TileBackgroundPanel;
 import fr.univparis.azul.model.Game;
 import fr.univparis.azul.model.Player;
+import fr.univparis.azul.model.area.CenterArea;
 import fr.univparis.azul.model.area.Factory;
 import fr.univparis.azul.model.tile.ColoredTile;
+import fr.univparis.azul.model.tile.FirstTile;
 import fr.univparis.azul.model.tile.Tile;
 import fr.univparis.azul.tile.view.TileView;
 
@@ -135,7 +137,7 @@ public class GameView extends JFrame {
 	return factoryView;
     }
 
-    private static JPanel createBottomArea( List<Player> players ) {
+    private JPanel createBottomArea( List<Player> players ) {
 	JPanel bottomArea = new JPanel(new GridBagLayout());
 	bottomArea.setOpaque(false);
 	
@@ -151,9 +153,7 @@ public class GameView extends JFrame {
 	c.gridx = 1;
 	c.weightx = 1.0;
 	c.insets = new Insets(50,50,50,50);
-	JPanel centerArea = new JPanel( new FlowLayout(FlowLayout.LEADING) );
-	centerArea.setBackground( new Color(0,0,0,50));
-	bottomArea.add( centerArea,c );
+	bottomArea.add( createCenterArea(gameModel.getBoard().center),c );
 	
         List<Player> rightPlayers = players.subList(players.size()/2, players.size() );
 	c.gridx = 2;
@@ -164,6 +164,21 @@ public class GameView extends JFrame {
 	return bottomArea;
     }
 
+    
+    private static JPanel createCenterArea(CenterArea centerArea) {
+	JPanel centerAreaView = new JPanel( new FlowLayout(FlowLayout.LEADING) );
+	centerAreaView.setBackground( new Color(0,0,0,50));
+
+	for( Tile tile : centerArea.getTiles() ) {
+	    if( tile instanceof ColoredTile )
+		centerAreaView.add( createTileView( ((ColoredTile)tile).getColor()  ));
+	    else if ( tile instanceof FirstTile )
+		centerAreaView.add( new TileView(GameView.class.getResource("/assets/first.png")));
+	}
+
+	return centerAreaView;
+    }
+    
     private static JPanel createPlayersArea(List<Player> players) {
 	JPanel playersArea = new JPanel(new GridBagLayout());
         playersArea.setOpaque(false);
@@ -211,6 +226,7 @@ public class GameView extends JFrame {
 	
 	return playerBoard;
     }
+
     
     private static JPanel createPatternArea() {
 	JPanel patternArea = new JPanel(new GridBagLayout());
