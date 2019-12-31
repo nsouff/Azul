@@ -1,8 +1,8 @@
 package fr.univparis.azul;
 
-import java.io.*;
+import java.io.File;
 
-import java.net.*;
+import fr.univparis.azul.game.controller.GameController;
 
 public class App {
     public static void main( String[] args ) {
