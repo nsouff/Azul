@@ -9,6 +9,10 @@ public class PatternArea extends PlayerArea implements IndexedArea {
 
     private ArrayList<ArrayList<ColoredTile>> tiles;
 
+    public ArrayList<ArrayList<ColoredTile>> getTiles(){
+    	return tiles;
+    }
+    
     public PatternArea() {
       tiles = new ArrayList<ArrayList<ColoredTile>>(5);
       for (int i = 1; i < 6; i++) {

@@ -15,20 +15,20 @@ public class GameController {
 
 	public void play() {
 
-		boolean play = true;
+		//boolean play = true;
 
-		while( play ) {
+		//while( play ) {
 			//phase de préparation
 			gameModel.preparationPhase();
 			gameView.render();
 
 			//phase d'offre
-			gameModel.offerPhase();
+			//gameModel.offerPhase();
 
 			//decoration phase
-			play = !gameModel.decorationPhase();
-			gameView.render();
-		}
+			//play = !gameModel.decorationPhase();
+			//gameView.render();
+		//}
 		
 	}
 }

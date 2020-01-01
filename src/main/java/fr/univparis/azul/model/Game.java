@@ -160,8 +160,8 @@ public class Game {
 
 		for( Player player : players ) {
 			for(int i=0; i < 4; i++) {
-				PatternArea patternArea = player.playerBoard.playerPatternArea;
-				Wall wall = player.playerBoard.playerWall;
+				PatternArea patternArea = player.playerBoard.getPatternArea();
+				Wall wall = player.playerBoard.getWall();
 				if ( patternArea.isFull(i) ) {
 					ColoredTile cTile = patternArea.takeOneTile(i);
 					wall.add(i, cTile);
@@ -169,11 +169,11 @@ public class Game {
 
 					player.stats.addRoundScore(1);
 					player.stats.addRoundScore( wall.nbAdjacentTile(i, cTile.getColor() ));
-					player.stats.addRoundScore( -player.playerBoard.playerFloor.size() );//FIXME : It should be -1, -1, -1, -2, -2, -3, -3, -3
+					player.stats.addRoundScore( -player.playerBoard.getFloor().size() );//FIXME : It should be -1, -1, -1, -2, -2, -3, -3, -3
 				}
 			}
 			if( !rowDetected )
-				rowDetected = player.playerBoard.playerWall.hasFullRow();
+				rowDetected = player.playerBoard.getWall().hasFullRow();
 		}
 		return rowDetected;
 	}

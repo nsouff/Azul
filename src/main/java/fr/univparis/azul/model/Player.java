@@ -30,9 +30,9 @@ public abstract class Player {
 	}
 
 	public class PlayerBoard { // peut être protected
-		Wall playerWall;
-		Floor playerFloor;
-		PatternArea playerPatternArea;
+		private Wall playerWall;
+		private Floor playerFloor;
+		private PatternArea playerPatternArea;
 
 		public PlayerBoard() {
 			playerWall = new Wall();
@@ -47,6 +47,11 @@ public abstract class Player {
 		public Floor getFloor() {
 			return playerFloor;
 		}
+		
+		public PatternArea getPatternArea() {
+			return playerPatternArea;
+		}
+		
 	}
 
 	public Player(String name, Game.GameBoard g) {
