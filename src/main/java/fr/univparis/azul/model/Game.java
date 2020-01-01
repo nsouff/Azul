@@ -149,7 +149,7 @@ public class Game {
 	public CircularLinkedList<Player> getOrderedPlayers() {
 		CircularLinkedList<Player> orederedP = new CircularLinkedList<Player>();
 		for( Player player : players ) {
-			players.add(player);
+			orederedP.add(player);
 		}
 		orederedP.setFirst(players.get(0));
 		return orederedP;
