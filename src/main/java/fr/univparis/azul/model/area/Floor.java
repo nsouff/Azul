@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 import fr.univparis.azul.model.tile.Tile;
 
-public class Floor extends PlayerArea implements UnindexedArea {
-
+public class Floor implements UnindexedArea {
+ 
 	private LinkedList<Tile> tiles;
 
 	public Floor() {
