@@ -45,7 +45,7 @@ public class PlayerTest {
 		assertEquals(7, p.playerBoard.getFloor().size());
 		assertEquals(1, g.getBoard().center.size());
 
-	}
+	} 
 
 
 	@Test

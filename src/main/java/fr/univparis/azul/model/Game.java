@@ -74,7 +74,7 @@ public class Game {
 			throw new NullPointerException();		
 		if( playersName.length <= 1 || 4 < playersName.length )
 			throw new IllegalArgumentException();
-		
+
 		board = new GameBoard( playersName.length );
 
 		initPlayers( playersName );
@@ -125,12 +125,11 @@ public class Game {
 			f.fill(board.bag);
 		}
 	}
-	
+
 	public void offerPhase() {	
 		Iterator<Player> it = getOrderedPlayers().iterator();
-		while ( !board.areFactoriesEmpty() && board.center.isEmpty() ) {
+		while ( !board.areFactoriesEmpty() && !board.center.isEmpty() ) {
 			Player currentPlayer = it.next();
-			System.out.println("next");
 			//currentPlayer.play();	    
 		}
 	}
@@ -138,12 +137,12 @@ public class Game {
 	public CircularLinkedList<Player> getOrderedPlayers() {
 		CircularLinkedList<Player> orederedP = new CircularLinkedList<Player>();
 		for( Player player : players ) {
-			orederedP.add(player);
+			orederedP.add(player);		
 		}
 		orederedP.setFirst(players.get(0));
 		return orederedP;
 	}
-	
+
 	public boolean decorationPhase() {
 		boolean rowDetected = false;
 
