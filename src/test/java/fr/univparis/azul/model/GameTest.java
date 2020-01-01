@@ -9,12 +9,11 @@ import org.junit.Test;
 
 public class GameTest {
 
-  @Test
-  public void constructorTest() throws Exception{
-    URL url = this.getClass().getResource("/config.json");
-    File config = new File(url.getFile());
-    Game g = new Game(config);
-    assertEquals(4, g.getNbPlayers());
-  }
+	@Test
+	public void constructorTest() throws Exception{
+		String[] players = {"Romain","CPU1","Chris"};
+		Game g = new Game(players);
+		assertEquals(3, g.getNbPlayers());
+	}
 
 }

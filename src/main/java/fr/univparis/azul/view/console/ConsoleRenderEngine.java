@@ -5,7 +5,6 @@ import java.util.List;
 
 import fr.univparis.azul.model.Game;
 import fr.univparis.azul.model.Player;
-import fr.univparis.azul.model.Player.PlayerBoard;
 import fr.univparis.azul.model.area.CenterArea;
 import fr.univparis.azul.model.area.Factory;
 import fr.univparis.azul.model.area.Floor;

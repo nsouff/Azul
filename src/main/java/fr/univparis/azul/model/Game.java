@@ -1,13 +1,9 @@
 package fr.univparis.azul.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.json.JSONObject;
 
 import fr.univparis.azul.model.area.Bag;
 import fr.univparis.azul.model.area.CenterArea;
@@ -20,16 +16,6 @@ import fr.univparis.azul.model.tile.FirstTile;
 import fr.univparis.azul.model.util.CircularLinkedList;
 
 public class Game {
-	private class GameConfiguration {
-		private int nbOfPlayers;
-
-		public GameConfiguration(File f) throws Exception {
-			JSONObject json = new JSONObject (FileUtils.readFileToString(f,"utf-8"));
-
-			nbOfPlayers = json.getInt("nb_of_players");
-		}
-	}
-
 	public class GameBoard {
 		public Bag bag;
 		public Trash trash;
@@ -80,21 +66,23 @@ public class Game {
 		}
 	}
 
-	private GameConfiguration config;
 	private ArrayList<Player> players;
 	private GameBoard board;
 
-	public Game(File gameConfig) throws Exception {
-		config = new GameConfiguration(gameConfig);
+	public Game(String[] playersName)  {
+		if( playersName == null )
+			throw new NullPointerException();		
+		if( playersName.length <= 1 || 4 < playersName.length )
+			throw new IllegalArgumentException();
+		
+		board = new GameBoard( playersName.length );
 
-		board = new GameBoard(config.nbOfPlayers);
-
-		initPlayers(config.nbOfPlayers);
+		initPlayers( playersName );
 	}
 
 
 	public int getNbPlayers() {
-		return config.nbOfPlayers;
+		return players.size();
 	}
 
 	public List<Player> getWinners() {
@@ -142,6 +130,7 @@ public class Game {
 		Iterator<Player> it = getOrderedPlayers().iterator();
 		while ( !board.areFactoriesEmpty() && board.center.isEmpty() ) {
 			Player currentPlayer = it.next();
+			System.out.println("next");
 			//currentPlayer.play();	    
 		}
 	}
@@ -177,30 +166,12 @@ public class Game {
 		}
 		return rowDetected;
 	}
-	
-	// public void play() {
-	// 	boolean playing = true;
-	// 	Round round = new Round(players, players.get(0));
-	// 	do {
-	// 	    round.preparationPhase(board);
-	// 	    round.offerPhase(board);
-	// 	    playing = !round.decorationPhase(board);
-	// 	    // if ( playing ) {
-	// 	    // 	Player first = ;// obtenir le joueur possédant la tile 1er joueur
-	// 	    // 	round.getPlayers().setFirst( first ); // écrire une méthode dans Round pour faire ça
-	// 	    // }
-	// 	} while ( playing );
-	// }
 
+	private void initPlayers(String[] playersName) {
+		players = new ArrayList<Player>(playersName.length);
 
-	private void initPlayers(int nbOfPlayers) {
-		if( nbOfPlayers <= 1 || nbOfPlayers > 4 )
-			throw new IllegalArgumentException("Invalid number of players");
-
-		players = new ArrayList<Player>(nbOfPlayers);
-
-		for(int i=0; i < nbOfPlayers; i++) {
-			players.add(new HumanPlayer(String.valueOf(i), board)); //pour l'instant on initialise que des joueurs humains
+		for(int i=0; i < playersName.length; i++) {
+			players.add(new HumanPlayer(playersName[i], board)); //pour l'instant on initialise que des joueurs humains
 		}
 	}
 
