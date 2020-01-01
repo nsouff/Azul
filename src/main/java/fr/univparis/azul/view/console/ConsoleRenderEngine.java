@@ -27,7 +27,7 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 		renderFactories(game.getBoard().factories);
 		renderCenterArea(game.getBoard().center);
 		for( Player p : game.getPlayers() ) {
-			renderPlayerBoard(p.getStats().getName(), p.getPlayerBoard());
+			renderPlayerBoard(p);
 		}
 	}
 
@@ -79,11 +79,11 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 	}
 	
 	
-	private static void renderPlayerBoard(String playerName, PlayerBoard playerBoard) {
-		System.out.println("PlayerBoard of " + playerName);
-		renderPatternArea(playerBoard.getPatternArea());
-		renderWall(playerBoard.getWall());
-		renderFloor(playerBoard.getFloor());
+	private static void renderPlayerBoard(Player player) {
+		System.out.println("PlayerBoard of " + player.getStats().getName() + " with score of " + player.getStats().getTotalScore());
+		renderPatternArea(player.getPlayerBoard().getPatternArea());
+		renderWall(player.getPlayerBoard().getWall());
+		renderFloor(player.getPlayerBoard().getFloor());
 		System.out.println();
 	}
 	
