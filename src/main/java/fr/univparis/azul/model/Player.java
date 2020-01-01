@@ -44,6 +44,10 @@ public abstract class Player {
     public Wall getWall() {
       return playerWall;
     }
+
+	public Floor getFloor() {
+		return playerFloor;
+	}
   }
 
   public Player(String name, Game.GameBoard g) {

@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import fr.univparis.azul.model.Player;
+import fr.univparis.azul.model.area.Floor;
+import fr.univparis.azul.model.area.Wall;
+import fr.univparis.azul.model.tile.Tile;
 import fr.univparis.azul.tile.view.TileView;
 
 public class PlayerBoardView extends JPanel {
@@ -46,13 +49,13 @@ public class PlayerBoardView extends JPanel {
 
 		c.gridx = 1;
 		c.gridy = 0;
-		add( createWall(), c );
+		add( createWall(playerBoardModel.getWall()), c );
 
 
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridwidth = 2;
-		add( createFloor(), c);
+		add( createFloor(playerBoardModel.getFloor()), c);
 	}
 
 
@@ -80,32 +83,42 @@ public class PlayerBoardView extends JPanel {
 	}
 
 
-	private static JPanel createFloor() {
-		JPanel floor = new JPanel();
-		floor.setBackground(new Color(224, 211, 175));
+	private static JPanel createFloor(Floor floor) {
+		JPanel floorView = new JPanel();
+		floorView.setBackground(new Color(224, 211, 175));
 
-		for(int i=0; i < 7; i++) {
-			floor.add( TileView.createTilePlaceholder(Color.BLACK));
+		for(Tile tile : floor.getTiles()) {
+			floorView.add( new TileView(tile));
 		}
-		return floor;
+		
+		for(int i=floor.size(); i < 7;i++) {
+			floorView.add( TileView.createTilePlaceholder());
+		}
+		
+		return floorView;
 	}
 
-	private static JPanel createWall() {
-		JPanel wall = new JPanel(new GridBagLayout());
-		wall.setBackground(new Color(224, 211, 175));
+	private static JPanel createWall(Wall wall) {
+		JPanel wallView = new JPanel(new GridBagLayout());
+		wallView.setBackground(new Color(224, 211, 175));
 
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,5,5,5);
-
+		
 		for(int y=0; y < 5; y++) {
 			c.gridy = y;
 			for(int x=0; x < 5; x++) {
 				c.gridx = x;
-				wall.add( TileView.createTilePlaceholder(Color.BLACK), c);
+				Tile t = wall.get(y, x);
+				//FIXME : Wall is not colored
+				if( t == null )
+					wallView.add( TileView.createTilePlaceholder(Color.BLACK), c);
+				else
+					wallView.add( new TileView(t));
 			}
 		}
 
-		return wall;
+		return wallView;
 	}
 
 	private static BufferedImage loadBg() {
