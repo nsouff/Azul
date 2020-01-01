@@ -1,4 +1,4 @@
-package fr.univparis.azul.area.view;
+package fr.univparis.azul.view.gui;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 
 import fr.univparis.azul.model.area.Factory;
 import fr.univparis.azul.model.tile.Tile;
-import fr.univparis.azul.tile.view.TileView;
 
 public class FactoryView extends JPanel {
 

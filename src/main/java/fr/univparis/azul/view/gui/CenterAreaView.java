@@ -1,4 +1,4 @@
-package fr.univparis.azul.area.view;
+package fr.univparis.azul.view.gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 
 import fr.univparis.azul.model.area.CenterArea;
 import fr.univparis.azul.model.tile.Tile;
-import fr.univparis.azul.tile.view.TileView;
 
 public class CenterAreaView extends JPanel {
 

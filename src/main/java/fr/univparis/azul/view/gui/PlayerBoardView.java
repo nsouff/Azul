@@ -1,4 +1,4 @@
-package fr.univparis.azul.area.view;
+package fr.univparis.azul.view.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,31 +6,30 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.TransferHandler;
 import javax.swing.border.TitledBorder;
 
 import fr.univparis.azul.model.Player;
 import fr.univparis.azul.model.area.Floor;
 import fr.univparis.azul.model.area.Wall;
 import fr.univparis.azul.model.tile.Tile;
-import fr.univparis.azul.tile.view.TileView;
 
 public class PlayerBoardView extends JPanel {
 
-	private Player.PlayerBoard playerBoardModel;
+	private Player playerModel;
 	private static final BufferedImage img = loadBg();
 
-
-
-
-
 	public PlayerBoardView(Player player) {
-		playerBoardModel = player.getPlayerBoard();
+		playerModel = player;
+		Player.PlayerBoard playerBoardModel = playerModel.getPlayerBoard();
 
 		setLayout( new GridBagLayout() );
 
@@ -56,6 +55,7 @@ public class PlayerBoardView extends JPanel {
 		c.gridy = 1;
 		c.gridwidth = 2;
 		add( createFloor(playerBoardModel.getFloor()), c);
+
 	}
 
 
@@ -90,11 +90,11 @@ public class PlayerBoardView extends JPanel {
 		for(Tile tile : floor.getTiles()) {
 			floorView.add( new TileView(tile));
 		}
-		
+
 		for(int i=floor.size(); i < 7;i++) {
 			floorView.add( TileView.createTilePlaceholder());
 		}
-		
+
 		return floorView;
 	}
 
@@ -104,7 +104,7 @@ public class PlayerBoardView extends JPanel {
 
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,5,5,5);
-		
+
 		for(int y=0; y < 5; y++) {
 			c.gridy = y;
 			for(int x=0; x < 5; x++) {
