@@ -6,6 +6,7 @@ import fr.univparis.azul.controller.GameController;
 import fr.univparis.azul.model.Game;
 import fr.univparis.azul.view.GameRenderEngine;
 import fr.univparis.azul.view.console.ConsoleRenderEngine;
+import fr.univparis.azul.view.gui.GUIRenderEngine;
 
 public class App {
 
@@ -25,8 +26,23 @@ public class App {
 			players[i] = sc.nextLine();
 		}
 
-		sc.close();
 		return players;
+	}
+	
+	private static GameRenderEngine chooseGameRenderEngine(Game gameModel) {
+		int n;
+		Scanner sc = new Scanner(System.in);
+		
+		do {
+			System.out.println("1 - Mode console\n2 - Mode graphique");
+			System.out.print("Choisissez un mode entre 1 et 2 : ");
+			n = sc.nextInt();
+		} while ( n != 1 && n != 2);
+		
+		if(n == 1)
+			return new ConsoleRenderEngine(gameModel);
+		else
+			return new GUIRenderEngine(gameModel);
 	}
 
 	public static void main( String[] args ) {
@@ -34,7 +50,7 @@ public class App {
 		String[] players = createParty();
 
 		Game gameModel = new Game( players );
-		GameRenderEngine gameView = new ConsoleRenderEngine(gameModel);
+		GameRenderEngine gameView = chooseGameRenderEngine(gameModel);
 		GameController gameController = new GameController(gameModel, gameView );
 
 		gameController.play();
