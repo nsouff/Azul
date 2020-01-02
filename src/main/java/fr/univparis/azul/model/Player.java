@@ -130,7 +130,7 @@ public abstract class Player {
 			}
 		}
 		if (f == null) throw new IllegalStateException();
-		playerBoard.playerFloor.add(f);
+		playerBoard.playerFloor.add(new FirstTile(this));
 		gameBoard.center.getTiles().remove(f);
 	}
 
