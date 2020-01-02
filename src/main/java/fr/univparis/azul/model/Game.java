@@ -93,23 +93,10 @@ public class Game {
 		return players.size();
 	}
 
-	public List<Player> getWinners() {
-		List<Player> winners = new LinkedList<Player>();
-		winners.add( players.get(0) );
-
-		int max = winners.get(0).getStats().getTotalScore();
-
-		for( Player p : players ) {
-			int pScore = p.getStats().getTotalScore();
-			if( max < pScore ) {
-				winners.clear();
-				winners.add(p);
-				max = pScore;
-			} else if ( max == pScore ) {
-				winners.add(p);
-			}
-		}
-		return winners;
+	public ArrayList<Player> getPlayerRanking() {
+		ArrayList<Player> ranks = new ArrayList<Player>(players);
+		ranks.sort((Player p1, Player p2) -> p1.getStats().getTotalScore()-p2.getStats().getTotalScore());
+		return ranks;
 	}
 
 	private void initRound() {

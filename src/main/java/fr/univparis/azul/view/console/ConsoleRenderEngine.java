@@ -30,6 +30,16 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 			renderPlayerBoard(p);
 		}
 	}
+	
+	@Override
+	public void renderVictoryScreen() {
+		System.out.println("Final ranks : ");
+		ArrayList<Player> ranks = game.getPlayerRanking();
+		for	(int i=0; i < ranks.size(); i++) {
+			Player.Stat stat = ranks.get(i).getStats();
+			System.out.println(i + " - " + stat.getName() + " with a score of " + stat.getTotalScore());
+		}
+	}
 
 	private static void renderFactories(List<Factory> factories) {
 		System.out.println("Factories");

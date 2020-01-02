@@ -39,4 +39,9 @@ public class GUIRenderEngine extends GameRenderEngine {
 		window.revalidate();
 		window.repaint();
 	}
+
+	@Override
+	public void renderVictoryScreen() {
+	
+	}
 }

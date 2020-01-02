@@ -77,6 +77,8 @@ public abstract class Player {
 	}
 
 	public void moveFromFactoryToPattern(ColoredTile.Colors c, Factory f, int index) {
+		if(index < 0 || 4 < index)
+			throw new IllegalArgumentException("Invalid index : " + index);
 		if (! playerBoard.playerPatternArea.isEmpty(index) && playerBoard.playerPatternArea.getColoredTile(index, 0).getColor() != c)
 			throw new IllegalArgumentException("Tiles must be in the same color for each rows of the PatternArea");
 		List<Tile> tiles = f.getTiles();
@@ -94,6 +96,8 @@ public abstract class Player {
 	}
 
 	public void moveFromCenterAreatoPattern(ColoredTile.Colors c, int index) {
+		if(index < 0 || 4 < index)
+			throw new IllegalArgumentException("Invalid index : " + index);
 		if (! playerBoard.playerPatternArea.isEmpty(index) && playerBoard.playerPatternArea.getColoredTile(index, 0).getColor() != c) {
 			throw new IllegalArgumentException("Tiles must be in the same color for each rows of the PatternArea");
 		}

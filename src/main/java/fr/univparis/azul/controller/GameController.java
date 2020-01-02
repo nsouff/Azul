@@ -1,6 +1,9 @@
 package fr.univparis.azul.controller;
 
+import java.util.List;
+
 import fr.univparis.azul.model.Game;
+import fr.univparis.azul.model.Player;
 import fr.univparis.azul.view.GameRenderEngine;
 
 public class GameController {
@@ -28,7 +31,6 @@ public class GameController {
 			//decoration phase
 			play = !gameModel.decorationPhase();
 			gameView.render();
-		}
-
+		}	
 	}
 }
