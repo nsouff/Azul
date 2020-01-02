@@ -19,20 +19,20 @@ public class ConsoleInputManager extends InputManager {
 		System.out.println("Turn of " + player.getStats().getName());
 		String[] pos1 = {"C", "F"};
 		String s = question("Do you want to choose from the center or a facotry? (C/F)", pos1);
-		if (s == "C") {
+		if (s.equals("C")) {
 			boolean again1;
 			do {
 				again1 = false;
 				String[] pos2 = {"blue", "red", "green", "yellow", "black", "first"};
 				s = question("What type of tile do you want to move? (blue, red, yellow, green, black, first)", pos2);
-				if (s == "first") try {
+				if (s.equals("first")) try {
 					player.moveFirstTileFromCenterToFloor();
 				} catch(IllegalStateException e) {System.out.println("Error there is no first tile"); again1 = true;}
 				else {
 					ColoredTile.Colors c = ColoredTile.StringToColor(s);
 					String[] pos3 = {"F", "P"};
 					s = question("Where to ? Floor (F) or PatternArea (P)", pos3);
-					if (s == "P") {
+					if (s.equals("P")) {
 						boolean again2;
 						do {
 							again2 = false;
@@ -63,13 +63,13 @@ public class ConsoleInputManager extends InputManager {
 			String[] pos3 = {"blue", "red", "black", "green", "yellow"};
 			ColoredTile.Colors c;
 			do {
-				s = question("What type of tile do you want to move ? (blue, red, yellow, green, black, first)", pos3);
+				s = question("What type of tile do you want to move ? (blue, red, yellow, green, black)", pos3);
 				c = ColoredTile.StringToColor(s);
 				if (! f.containsColor(c)) System.out.println("Error the color must be in the chosen facotry");
 			} while (! f.containsColor(c));
 			String[] pos4 = {"F", "P"};
 			s = question("Where do you want to put the tile(s)? Floor (F) or the pattern area (P)", pos4);
-			if (s == "F") player.moveFromFactoryToFloor(c, f);
+			if (s.equals("F")) player.moveFromFactoryToFloor(c, f);
 			else {
 				boolean again;
 				String[] pos5 = {"0", "1", "2", "3", "4"};
