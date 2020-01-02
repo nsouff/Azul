@@ -3,7 +3,7 @@ package fr.univparis.azul.model.area;
 import fr.univparis.azul.model.tile.ColoredTile;
 import fr.univparis.azul.model.tile.Tile;
 
-public class Wall extends PlayerArea implements IndexedArea {
+public class Wall implements IndexedArea {
 
   private ColoredTile[][] tiles;
 
@@ -23,7 +23,7 @@ public class Wall extends PlayerArea implements IndexedArea {
     if (tiles[index][j] != null) throw new IllegalStateException("There  is already a " + ct.getColor() + " in row " + index);
     tiles[index][j] = ct;
   }
-
+ 
   private int rowSize(int row) {
     int size = 0;
     for(int i=0; i < 5; i++) {

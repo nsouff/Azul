@@ -20,6 +20,8 @@ public class GUIRenderEngine extends GameRenderEngine {
 		window = new JFrame("Azul");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		setFullScreenMode(window);
+		
 		window.setVisible(true);
 	}
 
@@ -31,8 +33,10 @@ public class GUIRenderEngine extends GameRenderEngine {
 	
 	@Override
 	public void render() {
-		//JPanel gameBoard = new GameBoardView();
+		JPanel gameBoard = new GameBoardView(game.getBoard(), game.getPlayers());
 
-		//window.setContentPane( gameBoard );
+		window.setContentPane( gameBoard );
+		window.revalidate();
+		window.repaint();
 	}
 }

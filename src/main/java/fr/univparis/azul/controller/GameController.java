@@ -17,7 +17,7 @@ public class GameController {
 
 		boolean play = true;
 
-		while( play ) {
+		for(int i=0; i < 2; i++) {
 			//phase de préparation
 			gameModel.preparationPhase();
 			gameView.render();

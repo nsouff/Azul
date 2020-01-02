@@ -5,17 +5,21 @@ import java.util.ArrayList;
 import fr.univparis.azul.model.tile.ColoredTile;
 import fr.univparis.azul.model.tile.Tile;
 
-public class PatternArea extends PlayerArea implements IndexedArea {
+public class PatternArea implements IndexedArea {
 
     private ArrayList<ArrayList<ColoredTile>> tiles;
 
+    public ArrayList<ArrayList<ColoredTile>> getTiles(){
+    	return tiles;
+    }
+    
     public PatternArea() {
       tiles = new ArrayList<ArrayList<ColoredTile>>(5);
       for (int i = 1; i < 6; i++) {
         tiles.add(new ArrayList<ColoredTile>(i));
       }
     }
-
+ 
     public static class PatternAreaIndexOutOfBoundsException extends ArrayIndexOutOfBoundsException {}
 
     public ColoredTile getColoredTile(int i, int j) {
