@@ -122,4 +122,46 @@ public class Wall implements IndexedArea {
     if (i < 5 && i > -1 && j < 5 && j > -1) return tiles[i][j];
     throw new IllegalArgumentException();
   }
+  
+  public int nbFullRow() {
+	  int nb = 0;
+	  for(int l=0; l < 5; l++) {
+		  nb += rowSize(l)==5?1:0;
+	  }
+	  return nb;
+  }
+  
+  public int nbFullColumn() {
+	  int nb=0;
+	  for(int c=0; c < 5; c++) {
+		  boolean full = true;
+		  for(int l=0; l < 5; l++) {
+			  if(tiles[l][c] == null)
+				  full = false;
+		  }
+		  nb += full?1:0;
+	  }
+	  return nb;
+  }
+  
+  public int nbFullColor() {
+	  int nb=0;
+	  for(ColoredTile.Colors color : ColoredTile.Colors.values()) {
+		  boolean full = true;
+		  for(int l=0; l < 5; l++) {
+			  	if( !colorInRow(color, l))
+			  		full = false;
+		  }
+		  nb += full?1:0;
+	  }
+	  return nb;
+  }
+  
+  private boolean colorInRow(ColoredTile.Colors color,int row) {
+	  for(int c=0; c < 5; c++) {
+		  if(tiles[row][c].getColor().equals(color))
+			  return true;
+	  }
+	  return false;
+  }
 }

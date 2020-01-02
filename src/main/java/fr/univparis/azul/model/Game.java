@@ -153,7 +153,7 @@ public class Game {
 
 					player.stats.addRoundScore(1);
 					player.stats.addRoundScore( wall.nbAdjacentTile(i, cTile.getColor() ));
-					player.stats.addRoundScore( -player.playerBoard.getFloor().size() );//FIXME : It should be -1, -1, -1, -2, -2, -3, -3, -3
+					player.stats.addRoundScore( malusFloor(player.playerBoard.getFloor().size()) );
 				}
 			}
 			// on s'occupe du plancher
@@ -161,7 +161,30 @@ public class Game {
 			if( !rowDetected )
 				rowDetected = player.playerBoard.getWall().hasFullRow();
 		}
+		if(rowDetected) {
+			for(Player player : players) {
+				Wall wall = player.playerBoard.getWall();
+				player.getStats().addRoundScore(wall.nbFullRow()*2);
+				player.getStats().addRoundScore(wall.nbFullColumn()*7);
+				player.getStats().addRoundScore(wall.nbFullColor()*10);
+			}
+		}
 		return rowDetected;
+	}
+
+
+	private static int malusFloor(int size) {
+		switch(size) {
+		case 0 : return 0;
+		case 1 : return -1;
+		case 2 : return -2;
+		case 3 : return -4;
+		case 4 : return -6;
+		case 5 : return -8;
+		case 6 : return -11;
+		case 7 : return -14;
+		}
+		return 0;
 	}
 
 	private void initPlayers(String[] playersName) {
