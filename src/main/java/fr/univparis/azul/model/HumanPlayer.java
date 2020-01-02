@@ -9,8 +9,8 @@ public class HumanPlayer extends Player {
     super(name, g);
   }
 
-  public GameAction play(InputManager input) {
-    return null;
+  public void play(InputManager input) {
+    input.read(this);
   }
 
 }

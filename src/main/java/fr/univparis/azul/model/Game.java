@@ -131,7 +131,7 @@ public class Game {
 		Iterator<Player> it = getOrderedPlayers().iterator();
 		while ( !board.areFactoriesEmpty() && !board.center.isEmpty() ) {
 			Player currentPlayer = it.next();
-			currentPlayer.play(input).apply();
+			currentPlayer.play(input);
 		}
 	}
 

@@ -1,4 +1,5 @@
 package fr.univparis.azul.view.console;
+import fr.univparis.azul.view.InputManager;
 import fr.univparis.azul.model.area.Factory;
 import java.util.Scanner;
 import fr.univparis.azul.model.Player;
@@ -6,15 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import fr.univparis.azul.model.tile.ColoredTile;
-public class ConsoleInputManager {
+public class ConsoleInputManager extends InputManager {
   Scanner sc;
-  Player player;
-  public ConsoleInputManager(Player p) {
+  public ConsoleInputManager() {
     sc = new Scanner(System.in);
-    player = p;
   }
 
-  public void read() {
+  public void read(Player player) {
 
     String[] pos1 = {"C", "F"};
     String s = question("Do you want to choose from the center or a facotry? (C/F)", pos1);
@@ -57,7 +56,7 @@ public class ConsoleInputManager {
       String[] pos3 = {"blue", "red", "black", "green", "yellow"};
       ColoredTile.Colors c;
       do {
-        s = question("What type of tile do you want to move ?", pos3);
+        s = question("What type of tile do you want to move ? (blue, red, yellow, green, black, first)", pos3);
         c = ColoredTile.StringToColor(s);
         if (! f.containsColor(c)) System.out.println("Error the color must be in the chosen facotry");
       } while (! f.containsColor(c));
@@ -78,50 +77,17 @@ public class ConsoleInputManager {
 
   }
 
-  private String fromWhere() {
-    String s = "";
-    while (s != "C" && s != "F") {
-      System.out.println("Do you want to choose from the center or a factory? (C/F)");
-      s = sc.nextLine();
-      if (s != "C" && s != "F") System.out.println("Error the answer must be \"C\" or \"F\"");
-    }
-    return s;
-  }
-
-  private String WhatType(boolean fromCenter) {
-    String s = "";
-    ArrayList<String> possible = new ArrayList<String>();
-    possible.add("blue"); possible.add("red"); possible.add("yellow"); possible.add("green"); possible.add("black");
-    if (fromCenter) possible.add("first");
-    while (! possible.contains(s)) {
-      System.out.println("What type of tiles do you want to move? (blue, red, yellow, green, black" + ((fromCenter)? ", first)" : ")"));
-      s = sc.nextLine();
-      if (! possible.contains(s)) System.out.println("Error the answer must be blue, red, yellow, green" + ((fromCenter)? ", black or first" : " or black"));
-    }
-    return s;
-  }
-
-
-  private String whereToInedx() {
-    String s = "";
-    ArrayList<String> possible = new ArrayList<String>();
-    for (int i = 0; i < 5; i++) possible.add(Integer.toString(i));
-    while (! possible.contains(s)) {
-      System.out.println("At what row do you want to put the tiles ? (Enter a number from 0 to 4)");
-      if (! possible.contains(s)) System.out.println("Error the answer must be 0, 1, 2, 3 or 4");
-    }
-    return s;
-  }
-
   private String question(String question, String[] possible) {
     List<String> pos = Arrays.asList(possible);
     String s = "";
     String errorMessage = "Error the answer must be ";
     for (int i = 0; i < pos.size(); i++) {
       if (i == pos.size() - 1) errorMessage += "or " + pos.get(i) + ".";
+      else errorMessage += pos.get(i) + ", ";
     }
     while (! pos.contains(s)) {
       System.out.println(question);
+      s = sc.nextLine();
       if (! pos.contains(s)) System.out.println(errorMessage);
     }
     return s;

@@ -19,6 +19,7 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 
 	public ConsoleRenderEngine(Game g) {
 		super(g);
+		input = new ConsoleInputManager();
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 	private static void renderFactory(Factory factory) {
 		System.out.println("Factory");
 		for(Tile t : factory.getTiles())
-			System.out.println( "\t"+renderTile(t));				
+			System.out.println( "\t"+renderTile(t));
 	}
 
 	private static String renderTile(Tile t) {
@@ -76,8 +77,8 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 		}
 		System.out.println();
 	}
-	
-	
+
+
 	private static void renderPlayerBoard(Player player) {
 		System.out.println("PlayerBoard of " + player.getStats().getName() + " with score of " + player.getStats().getTotalScore());
 		renderPatternArea(player.getPlayerBoard().getPatternArea());
@@ -85,7 +86,7 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 		renderFloor(player.getPlayerBoard().getFloor());
 		System.out.println();
 	}
-	
+
 	private static void renderPatternArea(PatternArea patternArea) {
 		System.out.println(" Pattern Area");
 		int numLine = 1;
@@ -123,5 +124,5 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 			}
 			System.out.println();
 		}
-	}	
+	}
 }

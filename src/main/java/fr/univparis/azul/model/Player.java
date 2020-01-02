@@ -159,6 +159,6 @@ public abstract class Player {
 		gameBoard.center.getTiles().removeAll(toDelete);
 	}
 
-	public abstract GameAction play(InputManager i);
+	public abstract void play(InputManager i);
 
 }
