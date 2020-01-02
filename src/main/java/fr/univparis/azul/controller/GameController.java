@@ -23,12 +23,12 @@ public class GameController {
 			gameView.render();
 
 			//phase d'offre
-			gameModel.offerPhase();
+			gameModel.offerPhase(gameView.input);
 
 			//decoration phase
 			play = !gameModel.decorationPhase();
 			gameView.render();
 		}
-		
+
 	}
 }

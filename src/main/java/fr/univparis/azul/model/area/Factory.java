@@ -58,4 +58,11 @@ public class Factory extends CommonArea {
     }
 
     public void emptyIt() {tiles = new ArrayList<Tile>(size);}
+
+    public boolean containsColor(ColoredTile.Colors c) {
+      for (Tile t : tiles) {
+        if (((ColoredTile)t).getColor() == c) return true;
+      }
+      return false;
+    }
 }

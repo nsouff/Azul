@@ -11,6 +11,9 @@ import fr.univparis.azul.model.area.Wall;
 import fr.univparis.azul.model.tile.ColoredTile;
 import fr.univparis.azul.model.tile.SpecialTile;
 import fr.univparis.azul.model.tile.Tile;
+import fr.univparis.azul.model.tile.FirstTile;
+import fr.univparis.azul.model.GameAction;
+import fr.univparis.azul.view.InputManager;
 
 public abstract class Player {
 	public class Stat { // peut être protected
@@ -58,7 +61,7 @@ public abstract class Player {
 
 	Stat stats;
 	PlayerBoard playerBoard;
-	Game.GameBoard gameBoard;
+	public Game.GameBoard gameBoard;
 
 	public PlayerBoard getPlayerBoard() {
 		return playerBoard;
@@ -112,9 +115,16 @@ public abstract class Player {
 		tiles.removeAll(toDelete);
 	}
 
-	public void moveSpecialTileFromCenterToFloor(SpecialTile s) {
-		gameBoard.center.getTiles().remove(s);
-		playerBoard.playerFloor.add(s);
+	public void moveFirstTileFromCenterToFloor() {
+		FirstTile f = null;
+		for (Tile t : gameBoard.center.getTiles()) {
+			if (t instanceof FirstTile) {
+				f = (FirstTile) t;
+			}
+		}
+		if (f == null) throw new IllegalStateException();
+		playerBoard.playerFloor.add(f);
+		gameBoard.center.getTiles().remove(f);
 	}
 
 	public void moveFromFactoryToFloor(ColoredTile.Colors c, Factory f) {
@@ -145,5 +155,7 @@ public abstract class Player {
 		}
 		gameBoard.center.getTiles().removeAll(toDelete);
 	}
+
+	public abstract GameAction play(InputManager i);
 
 }

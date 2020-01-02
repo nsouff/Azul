@@ -87,7 +87,7 @@ public class PlayerTest {
     }
     SpecialTile s = new FirstTile();
     g.getBoard().center.add(s);
-    p.moveSpecialTileFromCenterToFloor(s);
+    p.moveFirstTileFromCenterToFloor();
 
     assertEquals(1, p.playerBoard.playerFloor.size());
     assertEquals(4, g.getBoard().center.size());

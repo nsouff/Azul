@@ -18,6 +18,7 @@ import fr.univparis.azul.model.area.Wall;
 import fr.univparis.azul.model.tile.ColoredTile;
 import fr.univparis.azul.model.tile.FirstTile;
 import fr.univparis.azul.model.util.CircularLinkedList;
+import fr.univparis.azul.view.InputManager;
 
 public class Game {
 	private class GameConfiguration {
@@ -137,12 +138,12 @@ public class Game {
 			f.fill(board.bag);
 		}
 	}
-	
-	public void offerPhase() {	
+
+	public void offerPhase(InputManager input) {
 		Iterator<Player> it = getOrderedPlayers().iterator();
 		while ( !board.areFactoriesEmpty() && board.center.isEmpty() ) {
 			Player currentPlayer = it.next();
-			//currentPlayer.play();	    
+			currentPlayer.play(input).apply();
 		}
 	}
 
@@ -154,7 +155,7 @@ public class Game {
 		orederedP.setFirst(players.get(0));
 		return orederedP;
 	}
-	
+
 	public boolean decorationPhase() {
 		boolean rowDetected = false;
 
@@ -177,7 +178,7 @@ public class Game {
 		}
 		return rowDetected;
 	}
-	
+
 	// public void play() {
 	// 	boolean playing = true;
 	// 	Round round = new Round(players, players.get(0));
