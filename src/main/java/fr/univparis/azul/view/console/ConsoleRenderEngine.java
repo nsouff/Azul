@@ -19,7 +19,7 @@ public class ConsoleRenderEngine extends GameRenderEngine{
 
 	public ConsoleRenderEngine(Game g) {
 		super(g);
-		input = new ConsoleInputManager();
+		input = new ConsoleInputManager(this);
 	}
 
 	@Override

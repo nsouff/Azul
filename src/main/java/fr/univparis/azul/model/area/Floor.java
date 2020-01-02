@@ -2,6 +2,9 @@ package fr.univparis.azul.model.area;
 
 import java.util.LinkedList;
 
+import fr.univparis.azul.model.Game;
+import fr.univparis.azul.model.tile.ColoredTile;
+import fr.univparis.azul.model.tile.SpecialTile;
 import fr.univparis.azul.model.tile.Tile;
 
 public class Floor implements UnindexedArea {
@@ -30,4 +33,13 @@ public class Floor implements UnindexedArea {
 		return tiles;
 	}
 
+	public void clean(Game game) {
+		for(Tile tile : tiles) {
+			if(tile instanceof ColoredTile)
+				game.getBoard().trash.add(tile);
+			else if( tile instanceof SpecialTile)
+				((SpecialTile) tile).effect(game);
+		}
+		tiles.clear();
+	}
 }

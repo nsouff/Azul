@@ -85,8 +85,8 @@ public class PlayerTest {
 			g.getBoard().center.add(new ColoredTile(ColoredTile.Colors.BLUE));
 			g.getBoard().center.add(new ColoredTile(ColoredTile.Colors.GREEN));
 		}
-		SpecialTile s = new FirstTile();
-		g.getBoard().center.add(s);
+		
+		g.getBoard().center.add(new FirstTile());
 		p.moveFirstTileFromCenterToFloor();
 
 		assertEquals(1, p.playerBoard.getFloor().size());

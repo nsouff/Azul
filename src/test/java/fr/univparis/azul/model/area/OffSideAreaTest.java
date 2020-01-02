@@ -24,7 +24,7 @@ public class OffSideAreaTest {
     tiles.add(t1); tiles.add(t2); tiles.add(t3);
     Bag bag = new Bag();
     bag.tiles.clear();
-    bag.refill(trash);
+    trash.fill(bag);
     assertTrue(trash.isEmpty());
     assertTrue(bag.tiles.containsAll(tiles));
 

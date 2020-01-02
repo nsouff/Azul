@@ -2,5 +2,11 @@ package fr.univparis.azul.view;
 
 import fr.univparis.azul.model.Player;
 public abstract class InputManager {
-  public abstract void read(Player p);
+	protected GameRenderEngine gameView;
+	
+	public InputManager(GameRenderEngine g) {
+		gameView = g;
+	}
+	
+	public abstract void read(Player p);
 }

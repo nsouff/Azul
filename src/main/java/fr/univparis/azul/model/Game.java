@@ -68,8 +68,13 @@ public class Game {
 	}
 
 	private ArrayList<Player> players;
+	private Player firstPlayer;
 	private GameBoard board;
 
+	public void setFirst(Player p) {
+		firstPlayer = p;
+	}
+	
 	public Game(String[] playersName)  {
 		if( playersName == null )
 			throw new NullPointerException();
@@ -79,6 +84,8 @@ public class Game {
 		board = new GameBoard( playersName.length );
 
 		initPlayers( playersName );
+		
+		firstPlayer = players.get(0);
 	}
 
 
@@ -122,8 +129,8 @@ public class Game {
 			if( board.bag.isEmpty() && board.trash.isEmpty() )
 				break;
 			else if( board.bag.isEmpty() )
-				board.bag.refill( board.trash );
-			f.fill(board.bag);
+				board.trash.fill(board.bag);
+			board.bag.fill(f);
 		}
 	}
 
@@ -140,7 +147,7 @@ public class Game {
 		for( Player player : players ) {
 			orederedP.add(player);
 		}
-		orederedP.setFirst(players.get(0));
+		orederedP.setFirst( firstPlayer );
 		return orederedP;
 	}
 
@@ -148,6 +155,7 @@ public class Game {
 		boolean rowDetected = false;
 
 		for( Player player : players ) {
+			// on s'occupe du mur et des lignes de motif
 			for(int i=0; i < 4; i++) {
 				PatternArea patternArea = player.playerBoard.getPatternArea();
 				Wall wall = player.playerBoard.getWall();
@@ -161,6 +169,8 @@ public class Game {
 					player.stats.addRoundScore( -player.playerBoard.getFloor().size() );//FIXME : It should be -1, -1, -1, -2, -2, -3, -3, -3
 				}
 			}
+			// on s'occupe du plancher
+			player.getPlayerBoard().getFloor().clean(this);
 			if( !rowDetected )
 				rowDetected = player.playerBoard.getWall().hasFullRow();
 		}

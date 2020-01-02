@@ -8,7 +8,7 @@ import fr.univparis.azul.model.tile.Tile;
 
 public class Factory extends CommonArea {
     /* FIXME: Maybe it should be implements Iterable */
-    private static final int size = 4;
+    public static final int size = 4;
     public Factory() {
 	tiles = new ArrayList<Tile>(size);
     }
@@ -33,10 +33,7 @@ public class Factory extends CommonArea {
     public List<Tile> getTiles() {return tiles;}
 
     // FIXME : change name to fillFrom or move the method to Bag class
-    public void fill(Bag bag) {
-      if (!isEmpty()) throw new NotEmptyFactoryException();
-      for (int i = 0; i < size; i++) add(bag.poll());
-    }
+   
 
     public void moveTilesTo(UnindexedArea area, ColoredTile ct, CenterArea ca) {
       for (Tile t : tiles) {
